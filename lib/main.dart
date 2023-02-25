@@ -28,10 +28,19 @@ class MyWidget extends StatelessWidget {
 }
 
 class CanvasGraph extends CustomPainter {
-  late double height, width;
+  late double height,
+      width,
+      tinggiBenda,
+      jarakBenda,
+      tinggiBayangan,
+      jarakBayangan;
   CanvasGraph(double height, double width) {
     this.height = height;
     this.width = width;
+    this.tinggiBenda = 100;
+    this.jarakBenda = 20;
+    this.tinggiBayangan = 70;
+    this.jarakBayangan = 90;
   }
   @override
   void paint(Canvas canvas, Size size) {
@@ -47,14 +56,22 @@ class CanvasGraph extends CustomPainter {
       ..color = Colors.green
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
+    final paint4 = Paint()
+      ..color = Colors.red
+      ..strokeWidth = 1
+      ..style = PaintingStyle.stroke;
     double height = this.height;
     double width = this.width;
     canvas.drawLine(Offset(width / 2, 0), Offset(width / 2, height), paint1);
     canvas.drawLine(Offset(0, height / 2), Offset(width, height / 2), paint1);
-    canvas.drawLine(
-        Offset(40, height / 2), Offset(40, height / 2 - 50), paint2);
-    canvas.drawLine(Offset(width - 80, height / 2),
-        Offset(width - 80, height / 2 + 100), paint3);
+    canvas.drawLine(Offset(jarakBenda, height / 2),
+        Offset(jarakBenda, height / 2 - tinggiBenda), paint2);
+    canvas.drawLine(Offset(jarakBayangan, height / 2),
+        Offset(jarakBayangan, height / 2 + tinggiBayangan), paint3);
+    canvas.drawLine(Offset(jarakBenda, height / 2 - tinggiBenda),
+        Offset(width / 2, height / 2 + tinggiBayangan), paint4);
+    canvas.drawLine(Offset(width / 2, height / 2 - tinggiBenda),
+        Offset(jarakBenda, height / 2 - tinggiBenda), paint4);
   }
 
   @override
