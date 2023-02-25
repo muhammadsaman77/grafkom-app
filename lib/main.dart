@@ -31,8 +31,8 @@ class CanvasGraph extends CustomPainter {
   late double height,
       width,
       tinggiBenda,
-      jarakBenda,
       tinggiBayangan,
+      jarakBenda,
       jarakBayangan;
   CanvasGraph(double height, double width) {
     this.height = height;
@@ -60,6 +60,10 @@ class CanvasGraph extends CustomPainter {
       ..color = Colors.red
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
+    final paint5 = Paint()
+      ..color = Colors.purpleAccent
+      ..strokeWidth = 1
+      ..style = PaintingStyle.stroke;
     double height = this.height;
     double width = this.width;
     canvas.drawLine(Offset(width / 2, 0), Offset(width / 2, height), paint1);
@@ -68,6 +72,12 @@ class CanvasGraph extends CustomPainter {
         Offset(jarakBenda, height / 2 - tinggiBenda), paint2);
     canvas.drawLine(Offset(jarakBayangan, height / 2),
         Offset(jarakBayangan, height / 2 + tinggiBayangan), paint3);
+    canvas.drawLine(Offset(jarakBayangan, height / 2 + tinggiBayangan),
+        Offset(width / 2, height / 2 + tinggiBayangan), paint3);
+    canvas.drawLine(Offset(jarakBayangan, height / 2 + tinggiBayangan),
+        Offset(width / 2, height / 2 + tinggiBayangan), paint5);
+    canvas.drawLine(Offset(jarakBayangan, height / 2 + tinggiBayangan),
+        Offset(width / 2, height / 2 - tinggiBenda), paint5);
     canvas.drawLine(Offset(jarakBenda, height / 2 - tinggiBenda),
         Offset(width / 2, height / 2 + tinggiBayangan), paint4);
     canvas.drawLine(Offset(width / 2, height / 2 - tinggiBenda),
