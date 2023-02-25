@@ -41,6 +41,7 @@ class CanvasGraph extends CustomPainter {
     this.jarakBenda = 20;
     this.tinggiBayangan = 70;
     this.jarakBayangan = 90;
+    this.height = height;
   }
   @override
   void paint(Canvas canvas, Size size) {
