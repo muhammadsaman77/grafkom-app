@@ -22,7 +22,7 @@ class MyWidget extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Container(
       child: CustomPaint(
-        painter: CanvasGraph(size.height, size.width, 112, 78, 297),
+        painter: CanvasGraph(size.height, size.width, -188, 116, 282),
       ),
     );
   }
@@ -44,12 +44,7 @@ class CanvasGraph extends CustomPainter {
   }
 
   double tinggiBayangan() {
-    if (this.jarakBayangan() / this.jarakBenda >= 0) {
-      return this.jarakBayangan() / this.jarakBenda * this.tinggiBenda;
-    } else if (this.jarakBayangan() / this.jarakBenda < 0) {
-      return this.jarakBayangan() / this.jarakBenda * this.tinggiBenda;
-    }
-    return -1;
+    return jarakBayangan() * this.tinggiBenda / this.jarakBenda;
   }
 
   @override
@@ -84,14 +79,20 @@ class CanvasGraph extends CustomPainter {
     canvas.drawLine(Offset(width / 2 - jarakBenda, height / 2),
         Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda), paint2);
     //bayangan
-    canvas.drawLine(Offset(jarakBayangan(), height / 2),
-        Offset(jarakBayangan(), height / 2 + tinggiBayangan()), paint3);
-    canvas.drawLine(Offset(jarakBayangan(), height / 2 + tinggiBayangan()),
-        Offset(width / 2, height / 2 + tinggiBayangan()), paint3);
-    canvas.drawLine(Offset(jarakBayangan(), height / 2 + tinggiBayangan()),
-        Offset(width / 2, height / 2 + tinggiBayangan()), paint5);
-    canvas.drawLine(Offset(jarakBayangan(), height / 2 + tinggiBayangan()),
-        Offset(width / 2, height / 2 - tinggiBenda), paint5);
+    canvas.drawLine(
+        Offset(width / 2 - jarakBayangan(), height / 2),
+        Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
+        paint3);
+    // sinar pantul
+    canvas.drawLine(
+        Offset(width / 2, height / 2 - this.tinggiBenda),
+        Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
+        paint5);
+    canvas.drawLine(
+        Offset(width / 2, height / 2 + tinggiBayangan()),
+        Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
+        paint5);
+    // sinar datang
     canvas.drawLine(Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
         Offset(width / 2, height / 2 + tinggiBayangan()), paint4);
     canvas.drawLine(Offset(width / 2, height / 2 - tinggiBenda),
