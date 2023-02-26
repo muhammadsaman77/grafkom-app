@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: SafeArea(child: MyWidget()),
+        body: SafeArea(child: Stack(children: [InitGraph(), FloatingModal()])),
         floatingActionButton:
             FloatingActionButton(onPressed: () {}, child: Icon(Icons.edit)),
       ),
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyWidget extends StatelessWidget {
+class InitGraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -118,4 +118,35 @@ class CanvasGraph extends CustomPainter {
 
   @override
   bool shouldRepaint(CanvasGraph oldDelegate) => false;
+}
+
+class FloatingModal extends StatefulWidget {
+  @override
+  State<FloatingModal> createState() => _FloatingModalState();
+}
+
+class _FloatingModalState extends State<FloatingModal> {
+  // bool isShow = false;
+  @override
+  Widget build(BuildContext context) {
+    return Transform.translate(
+      offset: Offset(460, 100),
+      child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.black.withOpacity(0.1),
+          ),
+          width: 250,
+          height: 250,
+          child: Column(
+            children: [
+              Text('Tinggi Benda'),
+              Text('Jarak Benda'),
+              Text('Titik Fokus'),
+              Text('Tinggi Bayangan'),
+              Text('Jarak Bayangan'),
+            ],
+          )),
+    );
+  }
 }
