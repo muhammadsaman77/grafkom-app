@@ -33,9 +33,9 @@ class MyWidget extends StatelessWidget {
         painter: CanvasGraph(
             height: size.height,
             width: size.width,
-            titikFokus: 112,
-            tinggiBenda: 100,
-            jarakBenda: 297),
+            titikFokus: -188,
+            tinggiBenda: 116,
+            jarakBenda: 282),
       ),
     );
   }
@@ -96,14 +96,20 @@ class CanvasGraph extends CustomPainter {
     canvas.drawLine(Offset(width / 2 - jarakBenda, height / 2),
         Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda), blue);
     //bayangan
-    canvas.drawLine(Offset(jarakBayangan(), height / 2),
-        Offset(jarakBayangan(), height / 2 + tinggiBayangan()), green);
-    canvas.drawLine(Offset(jarakBayangan(), height / 2 + tinggiBayangan()),
-        Offset(width / 2, height / 2 + tinggiBayangan()), green);
-    canvas.drawLine(Offset(jarakBayangan(), height / 2 + tinggiBayangan()),
-        Offset(width / 2, height / 2 + tinggiBayangan()), purple);
-    canvas.drawLine(Offset(jarakBayangan(), height / 2 + tinggiBayangan()),
-        Offset(width / 2, height / 2 - tinggiBenda), purple);
+    canvas.drawLine(
+        Offset(width / 2 - jarakBayangan(), height / 2),
+        Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
+        green);
+    // sinar pantul
+    canvas.drawLine(
+        Offset(width / 2, height / 2 - this.tinggiBenda),
+        Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
+        purple);
+    canvas.drawLine(
+        Offset(width / 2, height / 2 + tinggiBayangan()),
+        Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
+        purple);
+    // sinar datang
     canvas.drawLine(Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
         Offset(width / 2, height / 2 + tinggiBayangan()), red);
     canvas.drawLine(Offset(width / 2, height / 2 - tinggiBenda),
