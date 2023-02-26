@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: SafeArea(child: Stack(children: [InitGraph(), FloatingModal()])),
+        body: SafeArea(child: Stack(children: [InitGraph()])),
         floatingActionButton:
             FloatingActionButton(onPressed: () {}, child: Icon(Icons.edit)),
       ),
