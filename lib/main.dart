@@ -13,13 +13,134 @@ void main(List<String> args) {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: SafeArea(child: Stack(children: [InitGraph()])),
-        floatingActionButton:
-            FloatingActionButton(onPressed: () {}, child: Icon(Icons.edit)),
-      ),
+    return MaterialApp(debugShowCheckedModeBanner: false, home: MainPage());
+  }
+}
+
+class MainPage extends StatefulWidget {
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  bool isShow = false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+          child: Stack(children: [
+        InitGraph(),
+        Visibility(
+          visible: isShow,
+          child: Transform.translate(
+            offset: Offset(460, 100),
+            child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.black.withOpacity(0.1),
+                ),
+                width: 250,
+                height: 250,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text('h'),
+                        Slider(
+                          value: 0.5,
+                          onChanged: (value) {},
+                        ),
+                        Container(
+                          width: 30,
+                          height: 30,
+                          child: TextField(
+                            decoration:
+                                InputDecoration(border: OutlineInputBorder()),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text('s'),
+                        Slider(
+                          value: 0.5,
+                          onChanged: (value) {},
+                        ),
+                        Container(
+                          width: 30,
+                          height: 30,
+                          child: TextField(
+                            decoration:
+                                InputDecoration(border: OutlineInputBorder()),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text('f'),
+                        Slider(
+                          value: 0.5,
+                          onChanged: (value) {},
+                        ),
+                        Container(
+                          width: 30,
+                          height: 30,
+                          child: TextField(
+                            decoration:
+                                InputDecoration(border: OutlineInputBorder()),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text("h'"),
+                        Slider(
+                          value: 0.5,
+                          onChanged: (value) {},
+                        ),
+                        Container(
+                          width: 30,
+                          height: 30,
+                          child: TextField(
+                            decoration:
+                                InputDecoration(border: OutlineInputBorder()),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text("s'"),
+                        Slider(
+                          value: 0.5,
+                          onChanged: (value) {},
+                        ),
+                        Container(
+                          width: 30,
+                          height: 30,
+                          child: TextField(
+                            decoration:
+                                InputDecoration(border: OutlineInputBorder()),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                )),
+          ),
+        )
+      ])),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              isShow = !isShow;
+            });
+          },
+          child: isShow == true ? Icon(Icons.close) : Icon(Icons.edit)),
     );
   }
 }
@@ -118,35 +239,4 @@ class CanvasGraph extends CustomPainter {
 
   @override
   bool shouldRepaint(CanvasGraph oldDelegate) => false;
-}
-
-class FloatingModal extends StatefulWidget {
-  @override
-  State<FloatingModal> createState() => _FloatingModalState();
-}
-
-class _FloatingModalState extends State<FloatingModal> {
-  // bool isShow = false;
-  @override
-  Widget build(BuildContext context) {
-    return Transform.translate(
-      offset: Offset(460, 100),
-      child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.black.withOpacity(0.1),
-          ),
-          width: 250,
-          height: 250,
-          child: Column(
-            children: [
-              Text('Tinggi Benda'),
-              Text('Jarak Benda'),
-              Text('Titik Fokus'),
-              Text('Tinggi Bayangan'),
-              Text('Jarak Bayangan'),
-            ],
-          )),
-    );
-  }
 }
