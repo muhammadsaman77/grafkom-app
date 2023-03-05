@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -154,9 +156,9 @@ class InitGraph extends StatelessWidget {
         painter: CanvasGraph(
             height: size.height,
             width: size.width,
-            titikFokus: -188,
-            tinggiBenda: 116,
-            jarakBenda: 282),
+            titikFokus: 184,
+            tinggiBenda: 128,
+            jarakBenda: 277),
       ),
     );
   }
@@ -214,13 +216,72 @@ class CanvasGraph extends CustomPainter {
     //sumbu x
     canvas.drawLine(Offset(0, height / 2), Offset(width, height / 2), black);
     //benda
-    canvas.drawLine(Offset(width / 2 - jarakBenda, height / 2),
-        Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda), blue);
-    //bayangan
+    // canvas.drawLine(
+    //     Offset(width / 2 - jarakBenda, height / 2 - 1 / 3 * (tinggiBenda)),
+    //     Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
+    //     blue);
     canvas.drawLine(
-        Offset(width / 2 - jarakBayangan(), height / 2),
+        Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
+        Offset(width / 2 - jarakBenda + (1 / 6 * (jarakBenda)), height / 2),
+        blue);
+    canvas.drawLine(
+        Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
+        Offset(width / 2 - jarakBenda - (1 / 6 * (jarakBenda)), height / 2),
+        blue);
+    canvas.drawLine(
+        Offset(width / 2 - jarakBenda - (1 / 4 * (jarakBenda)),
+            height / 2 - tinggiBenda + (1 / 3 * (tinggiBenda))),
+        Offset(width / 2 - jarakBenda + (1 / 6 * (jarakBenda)), height / 2),
+        blue);
+    canvas.drawLine(
+        Offset(width / 2 - jarakBenda + (1 / 4 * (jarakBenda)),
+            height / 2 - tinggiBenda + (1 / 3 * (tinggiBenda))),
+        Offset(width / 2 - jarakBenda - (1 / 6 * (jarakBenda)), height / 2),
+        blue);
+    canvas.drawLine(
+        Offset(width / 2 - jarakBenda + (1 / 4 * (jarakBenda)),
+            height / 2 - tinggiBenda + (1 / 3 * (tinggiBenda))),
+        Offset(width / 2 - jarakBenda - (1 / 4 * (jarakBenda)),
+            height / 2 - tinggiBenda + (1 / 3 * (tinggiBenda))),
+        blue);
+    //bayangan
+    // canvas.drawLine(
+    //     Offset(width / 2 - jarakBayangan(), height / 2),
+    //     Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
+    //     green);
+    canvas.drawLine(
         Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
+        Offset(width / 2 - jarakBayangan() + (1 / 6 * (jarakBayangan())),
+            height / 2),
         green);
+    canvas.drawLine(
+        Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
+        Offset(width / 2 - jarakBayangan() - (1 / 6 * (jarakBayangan())),
+            height / 2),
+        green);
+    canvas.drawLine(
+        Offset(width / 2 - jarakBayangan() - (1 / 4 * (jarakBayangan())),
+            height / 2 + tinggiBayangan() - (1 / 3 * (tinggiBayangan()))),
+        Offset(width / 2 - jarakBayangan() + (1 / 6 * (jarakBayangan())),
+            height / 2),
+        green);
+    canvas.drawLine(
+        Offset(width / 2 - jarakBayangan() + (1 / 4 * (jarakBayangan())),
+            height / 2 + tinggiBayangan() - (1 / 3 * (tinggiBayangan()))),
+        Offset(width / 2 - jarakBayangan() - (1 / 6 * (jarakBayangan())),
+            height / 2),
+        green);
+    canvas.drawLine(
+        Offset(width / 2 - jarakBayangan() + (1 / 4 * (jarakBayangan())),
+            height / 2 + tinggiBayangan() - (1 / 3 * (tinggiBayangan()))),
+        Offset(width / 2 - jarakBayangan() - (1 / 4 * (jarakBayangan())),
+            height / 2 + tinggiBayangan() - (1 / 3 * (tinggiBayangan()))),
+        green);
+    // canvas.drawLine(
+    //     Offset(width / 2 - jarakBayangan(), height / 2),
+    //     Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
+    //     green);
+
     // sinar pantul
     canvas.drawLine(
         Offset(width / 2, height / 2 - this.tinggiBenda),
