@@ -25,7 +25,9 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  TextEditingController tinggi = new TextEditingController(text: '12');
+  static double tinggi = 128;
+  TextEditingController tinggiField =
+      TextEditingController(text: tinggi.toString());
   bool isShow = false;
   @override
   Widget build(BuildContext context) {
@@ -33,11 +35,20 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: SafeArea(
           child: Stack(children: [
-        InitGraph(),
-        Visibility(
-          visible: isShow,
-          child: Transform.translate(
-            offset: Offset(size.width * 12 / 16, size.height * 4 / 8),
+        InitGraph(
+          tinggiBenda: tinggi,
+        ),
+        Container(
+          margin: EdgeInsets.only(
+              top: size.height * 4 / 8, left: size.width * 12 / 16),
+          // bottom: ,
+          // top: 20,
+          // right: -100,
+          child: Visibility(
+            visible: isShow,
+            // bottom: 0,
+            // top: 500,
+            // offset: Offset(size.width * 12 / 16, size.height * 4 / 8),
             child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -55,15 +66,27 @@ class _MainPageState extends State<MainPage> {
                           Text('h'),
                           Slider(
                             value: 0.5,
-                            onChanged: (value) {},
+                            onChanged: (value) {
+                              setState(() {
+                                tinggi = value;
+                              });
+                            },
                           ),
                           Container(
-                            width: 30,
-                            height: 30,
+                            width: 50,
+                            height: 40,
                             child: TextField(
-                              controller: tinggi,
-                              decoration:
-                                  InputDecoration(border: OutlineInputBorder()),
+                              onChanged: (value) {
+                                setState(() {
+                                  tinggi = double.parse(value);
+                                });
+                              },
+                              controller: tinggiField,
+                              style: TextStyle(fontSize: 14),
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 10),
+                                  border: OutlineInputBorder()),
                             ),
                           )
                         ],
@@ -76,8 +99,8 @@ class _MainPageState extends State<MainPage> {
                             onChanged: (value) {},
                           ),
                           Container(
-                            width: 30,
-                            height: 30,
+                            width: 40,
+                            height: 40,
                             child: TextField(
                               decoration:
                                   InputDecoration(border: OutlineInputBorder()),
@@ -93,8 +116,8 @@ class _MainPageState extends State<MainPage> {
                             onChanged: (value) {},
                           ),
                           Container(
-                            width: 30,
-                            height: 30,
+                            width: 40,
+                            height: 40,
                             child: TextField(
                               decoration:
                                   InputDecoration(border: OutlineInputBorder()),
@@ -140,7 +163,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                 )),
           ),
-        )
+        ),
       ])),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -154,6 +177,8 @@ class _MainPageState extends State<MainPage> {
 }
 
 class InitGraph extends StatelessWidget {
+  double tinggiBenda;
+  InitGraph({required this.tinggiBenda});
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -163,7 +188,7 @@ class InitGraph extends StatelessWidget {
             height: size.height,
             width: size.width,
             titikFokus: 184,
-            tinggiBenda: 128,
+            tinggiBenda: tinggiBenda,
             jarakBenda: 277),
       ),
     );
