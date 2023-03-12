@@ -40,10 +40,6 @@ class _MainPageState extends State<MainPage> {
       TextEditingController(text: tinggi.toString());
   TextEditingController titikFokusField =
       TextEditingController(text: titikFokus.toString());
-  TextEditingController jarakBayanganField =
-      TextEditingController(text: jarakBayangan.toString());
-  TextEditingController tinggiBayanganField =
-      TextEditingController(text: tinggiBayangan.toString());
   bool isShow = false;
   @override
   Widget build(BuildContext context) {
@@ -115,7 +111,9 @@ class _MainPageState extends State<MainPage> {
                         children: [
                           Text('s'),
                           Slider(
-                            value: 0.5,
+                            min: -size.width / 2,
+                            max: size.width,
+                            value: 0,
                             onChanged: (value) {},
                           ),
                           Container(
@@ -172,15 +170,14 @@ class _MainPageState extends State<MainPage> {
                       Row(
                         children: [
                           Text("h'"),
-                          Slider(
-                            value: 0.5,
-                            onChanged: (value) {},
+                          SizedBox(
+                            width: 190,
                           ),
                           Container(
                             width: 50,
                             height: 40,
                             child: Text(
-                              tinggiBayangan.toString(),
+                              tinggiBayangan.toInt().toString(),
                               style: TextStyle(fontSize: 14),
                             ),
                           )
@@ -189,17 +186,14 @@ class _MainPageState extends State<MainPage> {
                       Row(
                         children: [
                           Text("s'"),
-                          Slider(
-                            value: 0.5,
-                            onChanged: (value) {
-                              setState(() {});
-                            },
+                          SizedBox(
+                            width: 190,
                           ),
                           Container(
                             width: 50,
                             height: 40,
                             child: Text(
-                              jarakBayangan.toString(),
+                              jarakBayangan.toInt().toString(),
                               style: TextStyle(fontSize: 14),
                             ),
                           )
@@ -297,10 +291,6 @@ class CanvasGraph extends CustomPainter {
     //sumbu x
     canvas.drawLine(Offset(0, height / 2), Offset(width, height / 2), black);
     //benda
-    // canvas.drawLine(
-    //     Offset(width / 2 - jarakBenda, height / 2 - 1 / 3 * (tinggiBenda)),
-    //     Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
-    //     blue);
     canvas.drawLine(
         Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
         Offset(width / 2 - jarakBenda + (1 / 6 * (jarakBenda)), height / 2),
@@ -326,10 +316,6 @@ class CanvasGraph extends CustomPainter {
             height / 2 - tinggiBenda + (1 / 3 * (tinggiBenda))),
         blue);
     //bayangan
-    // canvas.drawLine(
-    //     Offset(width / 2 - jarakBayangan(jarakBenda,titikFokus), height / 2),
-    //     Offset(width / 2 - jarakBayangan(jarakBenda,titikFokus), height / 2 + tinggiBayangan(tinggiBenda,jarakBenda,titikFokus)),
-    //     green);
     canvas.drawLine(
         Offset(width / 2 - jarakBayangan(jarakBenda, titikFokus),
             height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
