@@ -25,9 +25,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  TextEditingController tinggi = new TextEditingController(text: '12');
   bool isShow = false;
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
           child: Stack(children: [
@@ -35,103 +37,107 @@ class _MainPageState extends State<MainPage> {
         Visibility(
           visible: isShow,
           child: Transform.translate(
-            offset: Offset(460, 100),
+            offset: Offset(size.width * 12 / 16, size.height * 4 / 8),
             child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.black.withOpacity(0.1),
                 ),
-                width: 250,
-                height: 250,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text('h'),
-                        Slider(
-                          value: 0.5,
-                          onChanged: (value) {},
-                        ),
-                        Container(
-                          width: 30,
-                          height: 30,
-                          child: TextField(
-                            decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                width: 350,
+                height: 350,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text('h'),
+                          Slider(
+                            value: 0.5,
+                            onChanged: (value) {},
                           ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text('s'),
-                        Slider(
-                          value: 0.5,
-                          onChanged: (value) {},
-                        ),
-                        Container(
-                          width: 30,
-                          height: 30,
-                          child: TextField(
-                            decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                          Container(
+                            width: 30,
+                            height: 30,
+                            child: TextField(
+                              controller: tinggi,
+                              decoration:
+                                  InputDecoration(border: OutlineInputBorder()),
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text('s'),
+                          Slider(
+                            value: 0.5,
+                            onChanged: (value) {},
                           ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text('f'),
-                        Slider(
-                          value: 0.5,
-                          onChanged: (value) {},
-                        ),
-                        Container(
-                          width: 30,
-                          height: 30,
-                          child: TextField(
-                            decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                          Container(
+                            width: 30,
+                            height: 30,
+                            child: TextField(
+                              decoration:
+                                  InputDecoration(border: OutlineInputBorder()),
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text('f'),
+                          Slider(
+                            value: 0.5,
+                            onChanged: (value) {},
                           ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("h'"),
-                        Slider(
-                          value: 0.5,
-                          onChanged: (value) {},
-                        ),
-                        Container(
-                          width: 30,
-                          height: 30,
-                          child: TextField(
-                            decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                          Container(
+                            width: 30,
+                            height: 30,
+                            child: TextField(
+                              decoration:
+                                  InputDecoration(border: OutlineInputBorder()),
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text("h'"),
+                          Slider(
+                            value: 0.5,
+                            onChanged: (value) {},
                           ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("s'"),
-                        Slider(
-                          value: 0.5,
-                          onChanged: (value) {},
-                        ),
-                        Container(
-                          width: 30,
-                          height: 30,
-                          child: TextField(
-                            decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                          Container(
+                            width: 30,
+                            height: 30,
+                            child: TextField(
+                              decoration:
+                                  InputDecoration(border: OutlineInputBorder()),
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text("s'"),
+                          Slider(
+                            value: 0.5,
+                            onChanged: (value) {},
                           ),
-                        )
-                      ],
-                    ),
-                  ],
+                          Container(
+                            width: 30,
+                            height: 30,
+                            child: TextField(
+                              decoration:
+                                  InputDecoration(border: OutlineInputBorder()),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 )),
           ),
         )
