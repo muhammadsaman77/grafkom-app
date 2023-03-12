@@ -26,19 +26,24 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   static double tinggi = 128;
-  CanvasGraph canvasGraph = CanvasGraph(
-      height: height,
-      width: width,
-      titikFokus: titikFokus,
-      tinggiBenda: tinggiBenda,
-      jarakBenda: jarakBenda);
+  static double jarak = 277;
+  static double titikFokus = 184;
+  static double jarakBayangan = CanvasGraph.jarakBayangan(jarak, titikFokus);
+  static double tinggiBayangan =
+      CanvasGraph.tinggiBayangan(tinggi, jarak, titikFokus);
 
+  // CanvasGraph Dgraph = CanvasGraph()
+  // static double
+  TextEditingController jarakField =
+      TextEditingController(text: jarak.toString());
   TextEditingController tinggiField =
       TextEditingController(text: tinggi.toString());
-
-  TextEditingController tinggiBayangan =
-      TextEditingController(text: tinggiBayangan().toString());
-
+  TextEditingController titikFokusField =
+      TextEditingController(text: titikFokus.toString());
+  TextEditingController jarakBayanganField =
+      TextEditingController(text: jarakBayangan.toString());
+  TextEditingController tinggiBayanganField =
+      TextEditingController(text: tinggiBayangan.toString());
   bool isShow = false;
   @override
   Widget build(BuildContext context) {
@@ -46,7 +51,11 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: SafeArea(
           child: Stack(children: [
-        InitGraph(tinggiBenda: tinggi),
+        InitGraph(
+          titikFokus: titikFokus,
+          jarakBenda: jarak,
+          tinggiBenda: tinggi,
+        ),
         Container(
           margin: EdgeInsets.only(
               top: size.height * 4 / 8, left: size.width * 12 / 16),
@@ -88,6 +97,8 @@ class _MainPageState extends State<MainPage> {
                               onChanged: (value) {
                                 setState(() {
                                   tinggi = double.parse(value);
+                                  tinggiBayangan = CanvasGraph.tinggiBayangan(
+                                      tinggi, jarak, titikFokus);
                                 });
                               },
                               controller: tinggiField,
@@ -108,11 +119,22 @@ class _MainPageState extends State<MainPage> {
                             onChanged: (value) {},
                           ),
                           Container(
-                            width: 40,
+                            width: 50,
                             height: 40,
                             child: TextField(
-                              decoration:
-                                  InputDecoration(border: OutlineInputBorder()),
+                              controller: jarakField,
+                              onChanged: (value) {
+                                setState(() {
+                                  jarak = double.parse(value);
+                                  jarakBayangan = CanvasGraph.jarakBayangan(
+                                      jarak, titikFokus);
+                                });
+                              },
+                              style: TextStyle(fontSize: 14),
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 10),
+                                  border: OutlineInputBorder()),
                             ),
                           )
                         ],
@@ -125,11 +147,24 @@ class _MainPageState extends State<MainPage> {
                             onChanged: (value) {},
                           ),
                           Container(
-                            width: 40,
+                            width: 50,
                             height: 40,
                             child: TextField(
-                              decoration:
-                                  InputDecoration(border: OutlineInputBorder()),
+                              controller: titikFokusField,
+                              onChanged: (value) {
+                                setState(() {
+                                  titikFokus = double.parse(value);
+                                  jarakBayangan = CanvasGraph.jarakBayangan(
+                                      jarak, titikFokus);
+                                  tinggiBayangan = CanvasGraph.tinggiBayangan(
+                                      tinggi, jarak, titikFokus);
+                                });
+                              },
+                              style: TextStyle(fontSize: 14),
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 10),
+                                  border: OutlineInputBorder()),
                             ),
                           )
                         ],
@@ -142,11 +177,11 @@ class _MainPageState extends State<MainPage> {
                             onChanged: (value) {},
                           ),
                           Container(
-                            width: 30,
-                            height: 30,
-                            child: TextField(
-                              decoration:
-                                  InputDecoration(border: OutlineInputBorder()),
+                            width: 50,
+                            height: 40,
+                            child: Text(
+                              tinggiBayangan.toString(),
+                              style: TextStyle(fontSize: 14),
                             ),
                           )
                         ],
@@ -156,14 +191,16 @@ class _MainPageState extends State<MainPage> {
                           Text("s'"),
                           Slider(
                             value: 0.5,
-                            onChanged: (value) {},
+                            onChanged: (value) {
+                              setState(() {});
+                            },
                           ),
                           Container(
-                            width: 30,
-                            height: 30,
-                            child: TextField(
-                              decoration:
-                                  InputDecoration(border: OutlineInputBorder()),
+                            width: 50,
+                            height: 40,
+                            child: Text(
+                              jarakBayangan.toString(),
+                              style: TextStyle(fontSize: 14),
                             ),
                           )
                         ],
@@ -186,8 +223,11 @@ class _MainPageState extends State<MainPage> {
 }
 
 class InitGraph extends StatelessWidget {
-  double tinggiBenda;
-  InitGraph({required this.tinggiBenda});
+  double tinggiBenda, jarakBenda, titikFokus;
+  InitGraph(
+      {required this.tinggiBenda,
+      required this.jarakBenda,
+      required this.titikFokus});
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -196,9 +236,9 @@ class InitGraph extends StatelessWidget {
         painter: CanvasGraph(
             height: size.height,
             width: size.width,
-            titikFokus: 184,
+            titikFokus: titikFokus,
             tinggiBenda: tinggiBenda,
-            jarakBenda: 277),
+            jarakBenda: jarakBenda),
       ),
     );
   }
@@ -206,6 +246,7 @@ class InitGraph extends StatelessWidget {
 
 class CanvasGraph extends CustomPainter {
   late double height, width, tinggiBenda, jarakBenda, titikFokus;
+  // double DjarakBayangan = 0;
   CanvasGraph(
       {required double height,
       required double width,
@@ -217,14 +258,14 @@ class CanvasGraph extends CustomPainter {
     this.tinggiBenda = tinggiBenda;
     this.jarakBenda = jarakBenda;
     this.titikFokus = titikFokus;
+    // this.jarakBayangan = 0;
   }
-  double jarakBayangan() {
-    return (this.jarakBenda * this.titikFokus) /
-        (this.jarakBenda - this.titikFokus);
+  static double jarakBayangan(jarakBenda, titikFokus) {
+    return (jarakBenda * titikFokus) / (jarakBenda - titikFokus);
   }
 
-  double tinggiBayangan() {
-    return this.jarakBayangan() * this.tinggiBenda / this.jarakBenda;
+  static double tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) {
+    return jarakBayangan(jarakBenda, titikFokus) * tinggiBenda / jarakBenda;
   }
 
   @override
@@ -286,54 +327,98 @@ class CanvasGraph extends CustomPainter {
         blue);
     //bayangan
     // canvas.drawLine(
-    //     Offset(width / 2 - jarakBayangan(), height / 2),
-    //     Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
+    //     Offset(width / 2 - jarakBayangan(jarakBenda,titikFokus), height / 2),
+    //     Offset(width / 2 - jarakBayangan(jarakBenda,titikFokus), height / 2 + tinggiBayangan(tinggiBenda,jarakBenda,titikFokus)),
     //     green);
     canvas.drawLine(
-        Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
-        Offset(width / 2 - jarakBayangan() + (1 / 6 * (jarakBayangan())),
+        Offset(width / 2 - jarakBayangan(jarakBenda, titikFokus),
+            height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
+        Offset(
+            width / 2 -
+                jarakBayangan(jarakBenda, titikFokus) +
+                (1 / 6 * (jarakBayangan(jarakBenda, titikFokus))),
             height / 2),
         green);
     canvas.drawLine(
-        Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
-        Offset(width / 2 - jarakBayangan() - (1 / 6 * (jarakBayangan())),
+        Offset(width / 2 - jarakBayangan(jarakBenda, titikFokus),
+            height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
+        Offset(
+            width / 2 -
+                jarakBayangan(jarakBenda, titikFokus) -
+                (1 / 6 * (jarakBayangan(jarakBenda, titikFokus))),
             height / 2),
         green);
     canvas.drawLine(
-        Offset(width / 2 - jarakBayangan() - (1 / 4 * (jarakBayangan())),
-            height / 2 + tinggiBayangan() - (1 / 3 * (tinggiBayangan()))),
-        Offset(width / 2 - jarakBayangan() + (1 / 6 * (jarakBayangan())),
+        Offset(
+            width / 2 -
+                jarakBayangan(jarakBenda, titikFokus) -
+                (1 / 4 * (jarakBayangan(jarakBenda, titikFokus))),
+            height / 2 +
+                tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) -
+                (1 /
+                    3 *
+                    (tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)))),
+        Offset(
+            width / 2 -
+                jarakBayangan(jarakBenda, titikFokus) +
+                (1 / 6 * (jarakBayangan(jarakBenda, titikFokus))),
             height / 2),
         green);
     canvas.drawLine(
-        Offset(width / 2 - jarakBayangan() + (1 / 4 * (jarakBayangan())),
-            height / 2 + tinggiBayangan() - (1 / 3 * (tinggiBayangan()))),
-        Offset(width / 2 - jarakBayangan() - (1 / 6 * (jarakBayangan())),
+        Offset(
+            width / 2 -
+                jarakBayangan(jarakBenda, titikFokus) +
+                (1 / 4 * (jarakBayangan(jarakBenda, titikFokus))),
+            height / 2 +
+                tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) -
+                (1 /
+                    3 *
+                    (tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)))),
+        Offset(
+            width / 2 -
+                jarakBayangan(jarakBenda, titikFokus) -
+                (1 / 6 * (jarakBayangan(jarakBenda, titikFokus))),
             height / 2),
         green);
     canvas.drawLine(
-        Offset(width / 2 - jarakBayangan() + (1 / 4 * (jarakBayangan())),
-            height / 2 + tinggiBayangan() - (1 / 3 * (tinggiBayangan()))),
-        Offset(width / 2 - jarakBayangan() - (1 / 4 * (jarakBayangan())),
-            height / 2 + tinggiBayangan() - (1 / 3 * (tinggiBayangan()))),
+        Offset(
+            width / 2 -
+                jarakBayangan(jarakBenda, titikFokus) +
+                (1 / 4 * (jarakBayangan(jarakBenda, titikFokus))),
+            height / 2 +
+                tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) -
+                (1 /
+                    3 *
+                    (tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)))),
+        Offset(
+            width / 2 -
+                jarakBayangan(jarakBenda, titikFokus) -
+                (1 / 4 * (jarakBayangan(jarakBenda, titikFokus))),
+            height / 2 +
+                tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) -
+                (1 /
+                    3 *
+                    (tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)))),
         green);
-    // canvas.drawLine(
-    //     Offset(width / 2 - jarakBayangan(), height / 2),
-    //     Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
-    //     green);
 
     // sinar pantul
     canvas.drawLine(
         Offset(width / 2, height / 2 - this.tinggiBenda),
-        Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
+        Offset(width / 2 - jarakBayangan(jarakBenda, titikFokus),
+            height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
         purple);
     canvas.drawLine(
-        Offset(width / 2, height / 2 + tinggiBayangan()),
-        Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
+        Offset(width / 2,
+            height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
+        Offset(width / 2 - jarakBayangan(jarakBenda, titikFokus),
+            height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
         purple);
     // sinar datang
-    canvas.drawLine(Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
-        Offset(width / 2, height / 2 + tinggiBayangan()), red);
+    canvas.drawLine(
+        Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
+        Offset(width / 2,
+            height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
+        red);
     canvas.drawLine(Offset(width / 2, height / 2 - tinggiBenda),
         Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda), red);
   }
