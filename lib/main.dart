@@ -35,9 +35,9 @@ class InitGraph extends StatelessWidget {
         painter: CanvasGraph(
             height: size.height,
             width: size.width,
-            titikFokus: 184,
-            tinggiBenda: 128,
-            jarakBenda: 277),
+            titikFokus: 188,
+            tinggiBenda: 200,
+            jarakBenda: 400),
       ),
     );
   }
@@ -94,11 +94,9 @@ class CanvasGraph extends CustomPainter {
     canvas.drawLine(Offset(width / 2, 0), Offset(width / 2, height), black);
     //sumbu x
     canvas.drawLine(Offset(0, height / 2), Offset(width, height / 2), black);
-    //benda
-    // canvas.drawLine(
-    //     Offset(width / 2 - jarakBenda, height / 2 - 1 / 3 * (tinggiBenda)),
-    //     Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
-    //     blue);
+    // benda
+    // canvas.drawLine(Offset(width / 2 - jarakBenda, height / 2),
+    //     Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda), blue);
     canvas.drawLine(
         Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
         Offset(width / 2 - jarakBenda + (1 / 6 * (jarakBenda)), height / 2),
@@ -123,6 +121,7 @@ class CanvasGraph extends CustomPainter {
         Offset(width / 2 - jarakBenda - (1 / 4 * (jarakBenda)),
             height / 2 - tinggiBenda + (1 / 3 * (tinggiBenda))),
         blue);
+
     //bayangan
     // canvas.drawLine(
     //     Offset(width / 2 - jarakBayangan(), height / 2),
