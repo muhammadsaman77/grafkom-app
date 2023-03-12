@@ -26,8 +26,14 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   static double tinggi = 128;
+  static double jarak = 277;
+  static double titikFokus = 184;
+  TextEditingController jarakField =
+      TextEditingController(text: jarak.toString());
   TextEditingController tinggiField =
       TextEditingController(text: tinggi.toString());
+  TextEditingController titikFokusField =
+      TextEditingController(text: titikFokus.toString());
   bool isShow = false;
   @override
   Widget build(BuildContext context) {
@@ -36,6 +42,8 @@ class _MainPageState extends State<MainPage> {
       body: SafeArea(
           child: Stack(children: [
         InitGraph(
+          titikFokus: titikFokus,
+          jarakBenda: jarak,
           tinggiBenda: tinggi,
         ),
         Container(
@@ -99,11 +107,20 @@ class _MainPageState extends State<MainPage> {
                             onChanged: (value) {},
                           ),
                           Container(
-                            width: 40,
+                            width: 50,
                             height: 40,
                             child: TextField(
-                              decoration:
-                                  InputDecoration(border: OutlineInputBorder()),
+                              controller: jarakField,
+                              onChanged: (value) {
+                                setState(() {
+                                  jarak = double.parse(value);
+                                });
+                              },
+                              style: TextStyle(fontSize: 14),
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 10),
+                                  border: OutlineInputBorder()),
                             ),
                           )
                         ],
@@ -116,11 +133,20 @@ class _MainPageState extends State<MainPage> {
                             onChanged: (value) {},
                           ),
                           Container(
-                            width: 40,
+                            width: 50,
                             height: 40,
                             child: TextField(
-                              decoration:
-                                  InputDecoration(border: OutlineInputBorder()),
+                              controller: titikFokusField,
+                              onChanged: (value) {
+                                setState(() {
+                                  titikFokus = double.parse(value);
+                                });
+                              },
+                              style: TextStyle(fontSize: 14),
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 10),
+                                  border: OutlineInputBorder()),
                             ),
                           )
                         ],
@@ -177,8 +203,11 @@ class _MainPageState extends State<MainPage> {
 }
 
 class InitGraph extends StatelessWidget {
-  double tinggiBenda;
-  InitGraph({required this.tinggiBenda});
+  double tinggiBenda, jarakBenda, titikFokus;
+  InitGraph(
+      {required this.tinggiBenda,
+      required this.jarakBenda,
+      required this.titikFokus});
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -187,9 +216,9 @@ class InitGraph extends StatelessWidget {
         painter: CanvasGraph(
             height: size.height,
             width: size.width,
-            titikFokus: 184,
+            titikFokus: titikFokus,
             tinggiBenda: tinggiBenda,
-            jarakBenda: 277),
+            jarakBenda: jarakBenda),
       ),
     );
   }
@@ -308,10 +337,6 @@ class CanvasGraph extends CustomPainter {
         Offset(width / 2 - jarakBayangan() - (1 / 4 * (jarakBayangan())),
             height / 2 + tinggiBayangan() - (1 / 3 * (tinggiBayangan()))),
         green);
-    // canvas.drawLine(
-    //     Offset(width / 2 - jarakBayangan(), height / 2),
-    //     Offset(width / 2 - jarakBayangan(), height / 2 + tinggiBayangan()),
-    //     green);
 
     // sinar pantul
     canvas.drawLine(
