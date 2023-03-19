@@ -84,10 +84,16 @@ class _MainPageState extends State<MainPage> {
                         children: [
                           Text('h'),
                           Slider(
-                            value: 0.5,
+                            min: -size.height / 2,
+                            max: size.height / 2,
+                            value: tinggi,
                             onChanged: (value) {
                               setState(() {
                                 tinggi = value;
+                                tinggiBayangan = DCanvas.tinggiBayangan(
+                                    tinggi, jarak, titikFokus);
+                                tinggiField = TextEditingController(
+                                    text: tinggi.toString());
                               });
                             },
                           ),
@@ -99,9 +105,19 @@ class _MainPageState extends State<MainPage> {
                           Text('s'),
                           Slider(
                             min: -size.width / 2,
-                            max: size.width,
-                            value: 0,
-                            onChanged: (value) {},
+                            max: size.width / 2,
+                            value: jarak,
+                            onChanged: (value) {
+                              setState(() {
+                                jarak = value;
+                                jarakField = TextEditingController(
+                                    text: jarak.toString());
+                                jarakBayangan =
+                                    DCanvas.jarakBayangan(jarak, titikFokus);
+                                tinggiBayangan = DCanvas.tinggiBayangan(
+                                    tinggi, jarak, titikFokus);
+                              });
+                            },
                           ),
                           DTextField(controller: jarakField)
                         ],
@@ -110,8 +126,20 @@ class _MainPageState extends State<MainPage> {
                         children: [
                           Text('f'),
                           Slider(
-                            value: 0.5,
-                            onChanged: (value) {},
+                            min: -size.width / 2,
+                            max: size.width / 2,
+                            value: titikFokus,
+                            onChanged: (value) {
+                              setState(() {
+                                titikFokus = value;
+                                titikFokusField = TextEditingController(
+                                    text: titikFokus.toString());
+                                jarakBayangan =
+                                    DCanvas.jarakBayangan(jarak, titikFokus);
+                                tinggiBayangan = DCanvas.tinggiBayangan(
+                                    tinggi, jarak, titikFokus);
+                              });
+                            },
                           ),
                           DTextField(controller: titikFokusField)
                         ],
