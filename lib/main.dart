@@ -1,3 +1,6 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -175,7 +178,7 @@ class _MainPageState extends State<MainPage> {
                             width: 50,
                             height: 40,
                             child: Text(
-                              tinggiBayangan.toInt().toString(),
+                              tinggiBayangan.toString(),
                               style: TextStyle(fontSize: 14),
                             ),
                           )
@@ -191,7 +194,7 @@ class _MainPageState extends State<MainPage> {
                             width: 50,
                             height: 40,
                             child: Text(
-                              jarakBayangan.toInt().toString(),
+                              jarakBayangan.toString(),
                               style: TextStyle(fontSize: 14),
                             ),
                           )
@@ -258,6 +261,32 @@ class CanvasGraph extends CustomPainter {
 
   static double tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) {
     return jarakBayangan(jarakBenda, titikFokus) * tinggiBenda / jarakBenda;
+  }
+
+  void drawLine(
+      Canvas canvas, double x1, double y1, double x2, double y2, Paint paint) {
+    double dx = x2 - x1;
+    double dy = y2 - y1;
+    double length = max(dx.abs(), dy.abs());
+    dx /= length;
+    dy /= length;
+
+    double x = x1;
+    double y = y1;
+    double b = y1;
+    double a = x1;
+
+    for (int i = 0; i <= length.toInt(); i++) {
+      canvas.drawPoints(PointMode.points, [Offset(x, y)], paint);
+      x += dx;
+      y += dy;
+    }
+
+    while (a.round() >= 0 && b.round() >= 0) {
+      canvas.drawPoints(PointMode.points, [Offset(a, b)], paint);
+      a -= dx;
+      b -= dy;
+    }
   }
 
   @override
@@ -398,13 +427,23 @@ class CanvasGraph extends CustomPainter {
             height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
         purple);
     // sinar datang
-    canvas.drawLine(
-        Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
-        Offset(width / 2,
-            height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
-        red);
-    canvas.drawLine(Offset(width / 2, height / 2 - tinggiBenda),
-        Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda), red);
+    drawLine(
+      canvas,
+      width / 2 - jarakBenda,
+      height / 2 - tinggiBenda,
+      width / 2,
+      height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus),
+      red,
+    );
+
+    drawLine(
+      canvas,
+      width / 2 - jarakBenda,
+      height / 2 - tinggiBenda,
+      width / 2,
+      height / 2 - tinggiBenda,
+      red,
+    );
   }
 
   @override
