@@ -104,7 +104,7 @@ class _MainPageState extends State<MainPage> {
                         children: [
                           Text('s'),
                           Slider(
-                            min: -size.width / 2,
+                            min: 0,
                             max: size.width / 2,
                             value: jarak,
                             onChanged: (value) {
