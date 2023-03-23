@@ -52,6 +52,63 @@ class DCanvas extends CustomPainter {
     }
   }
 
+  void drawLine_sinarPantul(
+      Canvas canvas, double x1, double y1, double x2, double y2, Paint paint) {
+    double dx = x2 - x1;
+    double dy = y2 - y1;
+    double length = max(dx.abs(), dy.abs());
+    dx /= length;
+    dy /= length;
+
+    double x = x1;
+    double y = y1;
+
+    while (x.round() >= 0 && y.round() <= height) {
+      canvas.drawPoints(PointMode.points, [Offset(x, y)], paint);
+      x += dx;
+      y += dy;
+    }
+  }
+
+  void drawLine_sinarPantul2(
+      Canvas canvas, double x1, double y1, double x2, double y2, Paint paint) {
+    double dx = x2 - x1;
+    double dy = y2 - y1;
+    double length = max(dx.abs(), dy.abs());
+    dx /= length;
+    dy /= length;
+
+    double x = x1;
+    double y = y1;
+
+    while (x.round() >= 0 && y.round() >= 0) {
+      canvas.drawPoints(PointMode.points, [Offset(x, y)], paint);
+      x -= dx;
+      y -= dy;
+    }
+  }
+
+  Paragraph _buildParagraph(String text, TextStyle style) {
+    final paragraphBuilder = ParagraphBuilder(
+      ParagraphStyle(
+        textAlign: TextAlign.left,
+        fontSize: style.fontSize!,
+        fontFamily: style.fontFamily,
+        fontStyle: style.fontStyle,
+        fontWeight: style.fontWeight,
+        height: style.height,
+      ),
+    );
+
+    paragraphBuilder.pushStyle(style.getTextStyle());
+    paragraphBuilder.addText(text);
+
+    final paragraph = paragraphBuilder.build();
+    paragraph.layout(ParagraphConstraints(width: 300));
+
+    return paragraph;
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
     final black = Paint()
@@ -83,26 +140,26 @@ class DCanvas extends CustomPainter {
     //benda
     canvas.drawLine(
         Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
-        Offset(width / 2 - jarakBenda + (1 / 6 * (jarakBenda)), height / 2),
+        Offset(width / 2 - jarakBenda + (1 / 6 * (tinggiBenda)), height / 2),
         blue);
     canvas.drawLine(
         Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
-        Offset(width / 2 - jarakBenda - (1 / 6 * (jarakBenda)), height / 2),
+        Offset(width / 2 - jarakBenda - (1 / 6 * (tinggiBenda)), height / 2),
         blue);
     canvas.drawLine(
-        Offset(width / 2 - jarakBenda - (1 / 4 * (jarakBenda)),
+        Offset(width / 2 - jarakBenda - (1 / 4 * (tinggiBenda)),
             height / 2 - tinggiBenda + (1 / 3 * (tinggiBenda))),
-        Offset(width / 2 - jarakBenda + (1 / 6 * (jarakBenda)), height / 2),
+        Offset(width / 2 - jarakBenda + (1 / 6 * (tinggiBenda)), height / 2),
         blue);
     canvas.drawLine(
-        Offset(width / 2 - jarakBenda + (1 / 4 * (jarakBenda)),
+        Offset(width / 2 - jarakBenda + (1 / 4 * (tinggiBenda)),
             height / 2 - tinggiBenda + (1 / 3 * (tinggiBenda))),
-        Offset(width / 2 - jarakBenda - (1 / 6 * (jarakBenda)), height / 2),
+        Offset(width / 2 - jarakBenda - (1 / 6 * (tinggiBenda)), height / 2),
         blue);
     canvas.drawLine(
-        Offset(width / 2 - jarakBenda + (1 / 4 * (jarakBenda)),
+        Offset(width / 2 - jarakBenda + (1 / 4 * (tinggiBenda)),
             height / 2 - tinggiBenda + (1 / 3 * (tinggiBenda))),
-        Offset(width / 2 - jarakBenda - (1 / 4 * (jarakBenda)),
+        Offset(width / 2 - jarakBenda - (1 / 4 * (tinggiBenda)),
             height / 2 - tinggiBenda + (1 / 3 * (tinggiBenda))),
         blue);
     //bayangan
@@ -112,7 +169,7 @@ class DCanvas extends CustomPainter {
         Offset(
             width / 2 -
                 jarakBayangan(jarakBenda, titikFokus) +
-                (1 / 6 * (jarakBayangan(jarakBenda, titikFokus))),
+                (1 / 6 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
             height / 2),
         green);
     canvas.drawLine(
@@ -121,14 +178,14 @@ class DCanvas extends CustomPainter {
         Offset(
             width / 2 -
                 jarakBayangan(jarakBenda, titikFokus) -
-                (1 / 6 * (jarakBayangan(jarakBenda, titikFokus))),
+                (1 / 6 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
             height / 2),
         green);
     canvas.drawLine(
         Offset(
             width / 2 -
                 jarakBayangan(jarakBenda, titikFokus) -
-                (1 / 4 * (jarakBayangan(jarakBenda, titikFokus))),
+                (1 / 4 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
             height / 2 +
                 tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) -
                 (1 /
@@ -137,14 +194,14 @@ class DCanvas extends CustomPainter {
         Offset(
             width / 2 -
                 jarakBayangan(jarakBenda, titikFokus) +
-                (1 / 6 * (jarakBayangan(jarakBenda, titikFokus))),
+                (1 / 6 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
             height / 2),
         green);
     canvas.drawLine(
         Offset(
             width / 2 -
                 jarakBayangan(jarakBenda, titikFokus) +
-                (1 / 4 * (jarakBayangan(jarakBenda, titikFokus))),
+                (1 / 4 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
             height / 2 +
                 tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) -
                 (1 /
@@ -153,14 +210,14 @@ class DCanvas extends CustomPainter {
         Offset(
             width / 2 -
                 jarakBayangan(jarakBenda, titikFokus) -
-                (1 / 6 * (jarakBayangan(jarakBenda, titikFokus))),
+                (1 / 6 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
             height / 2),
         green);
     canvas.drawLine(
         Offset(
             width / 2 -
                 jarakBayangan(jarakBenda, titikFokus) +
-                (1 / 4 * (jarakBayangan(jarakBenda, titikFokus))),
+                (1 / 4 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
             height / 2 +
                 tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) -
                 (1 /
@@ -169,7 +226,7 @@ class DCanvas extends CustomPainter {
         Offset(
             width / 2 -
                 jarakBayangan(jarakBenda, titikFokus) -
-                (1 / 4 * (jarakBayangan(jarakBenda, titikFokus))),
+                (1 / 4 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
             height / 2 +
                 tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) -
                 (1 /
@@ -178,16 +235,19 @@ class DCanvas extends CustomPainter {
         green);
 
     // sinar pantul
-    canvas.drawLine(
-        Offset(width / 2, height / 2 - this.tinggiBenda),
-        Offset(width / 2 - jarakBayangan(jarakBenda, titikFokus),
-            height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
+    drawLine_sinarPantul(
+        canvas,
+        width / 2,
+        height / 2 - tinggiBenda,
+        width / 2 - jarakBayangan(jarakBenda, titikFokus),
+        height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus),
         purple);
-    canvas.drawLine(
-        Offset(width / 2,
-            height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
-        Offset(width / 2 - jarakBayangan(jarakBenda, titikFokus),
-            height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
+    drawLine(
+        canvas,
+        width / 2 - jarakBayangan(jarakBenda, titikFokus),
+        height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus),
+        width / 2,
+        height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus),
         purple);
     // sinar datang
     drawLine(
@@ -207,6 +267,23 @@ class DCanvas extends CustomPainter {
       height / 2 - tinggiBenda,
       red,
     );
+
+    canvas.drawParagraph(
+        _buildParagraph(
+            'r', const TextStyle(fontSize: 14, color: Colors.black)),
+        Offset(width / 2 - titikFokus * 2, height / 2));
+    canvas.drawParagraph(
+        _buildParagraph(
+            'r', const TextStyle(fontSize: 14, color: Colors.black)),
+        Offset(width / 2 + titikFokus * 2, height / 2));
+    canvas.drawParagraph(
+        _buildParagraph(
+            'f', const TextStyle(fontSize: 14, color: Colors.black)),
+        Offset(width / 2 - titikFokus, height / 2));
+    canvas.drawParagraph(
+        _buildParagraph(
+            'f', const TextStyle(fontSize: 14, color: Colors.black)),
+        Offset(width / 2 + titikFokus, height / 2));
   }
 
   @override

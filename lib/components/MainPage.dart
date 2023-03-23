@@ -10,8 +10,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   static double tinggi = 128;
-  static double jarak = 277;
-  static double titikFokus = 184;
+  static double jarak = 184;
+  static double titikFokus = 84;
   static double jarakBayangan = DCanvas.jarakBayangan(jarak, titikFokus);
   static double tinggiBayangan =
       DCanvas.tinggiBayangan(tinggi, jarak, titikFokus);
@@ -126,7 +126,7 @@ class _MainPageState extends State<MainPage> {
                         children: [
                           Text('f'),
                           Slider(
-                            min: -size.width / 2,
+                            min: 0,
                             max: size.width / 2,
                             value: titikFokus,
                             onChanged: (value) {
