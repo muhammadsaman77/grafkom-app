@@ -3,17 +3,17 @@ import 'dart:math';
 import 'dart:ui';
 
 class DCanvas extends CustomPainter {
-  late double height, width, tinggiBenda, jarakBenda, titikFokus;
+  late double height, width, ukuranBenda, jarakBenda, titikFokus;
   // double DjarakBayangan = 0;
   DCanvas(
       {required double height,
       required double width,
       required double titikFokus,
-      required double tinggiBenda,
+      required double ukuranBenda,
       required double jarakBenda}) {
     this.height = height;
     this.width = width;
-    this.tinggiBenda = tinggiBenda;
+    this.ukuranBenda = ukuranBenda;
     this.jarakBenda = jarakBenda;
     this.titikFokus = titikFokus;
     // this.jarakBayangan = 0;
@@ -22,8 +22,8 @@ class DCanvas extends CustomPainter {
     return (jarakBenda * titikFokus) / (jarakBenda - titikFokus);
   }
 
-  static double tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) {
-    return jarakBayangan(jarakBenda, titikFokus) * tinggiBenda / jarakBenda;
+  static double ukuranBayangan(ukuranBenda, jarakBenda, titikFokus) {
+    return jarakBayangan(jarakBenda, titikFokus) * ukuranBenda / jarakBenda;
   }
 
   void drawLine(
@@ -45,7 +45,10 @@ class DCanvas extends CustomPainter {
       y += dy;
     }
 
-    while (a.round() >= 0 && b.round() >= 0) {
+    while (a.round() >= 0 &&
+        b.round() <= height &&
+        b.round() >= 0 &&
+        a.round() <= width) {
       canvas.drawPoints(PointMode.points, [Offset(a, b)], paint);
       a -= dx;
       b -= dy;
@@ -63,7 +66,10 @@ class DCanvas extends CustomPainter {
     double x = x1;
     double y = y1;
 
-    while (x.round() >= 0 && y.round() <= height) {
+    while (x.round() >= 0 &&
+        y.round() <= height &&
+        y.round() >= 0 &&
+        x.round() <= width) {
       canvas.drawPoints(PointMode.points, [Offset(x, y)], paint);
       x += dx;
       y += dy;
@@ -81,7 +87,10 @@ class DCanvas extends CustomPainter {
     double x = x1;
     double y = y1;
 
-    while (x.round() >= 0 && y.round() >= 0) {
+    while (x.round() >= 0 &&
+        y.round() <= height &&
+        y.round() >= 0 &&
+        x.round() <= width) {
       canvas.drawPoints(PointMode.points, [Offset(x, y)], paint);
       x -= dx;
       y -= dy;
@@ -139,134 +148,155 @@ class DCanvas extends CustomPainter {
     canvas.drawLine(Offset(0, height / 2), Offset(width, height / 2), black);
     //benda
     canvas.drawLine(
-        Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
-        Offset(width / 2 - jarakBenda + (1 / 6 * (tinggiBenda)), height / 2),
+        Offset(width / 2 - jarakBenda, height / 2 - ukuranBenda),
+        Offset(width / 2 - jarakBenda + (1 / 6 * (ukuranBenda)), height / 2),
         blue);
     canvas.drawLine(
-        Offset(width / 2 - jarakBenda, height / 2 - tinggiBenda),
-        Offset(width / 2 - jarakBenda - (1 / 6 * (tinggiBenda)), height / 2),
+        Offset(width / 2 - jarakBenda, height / 2 - ukuranBenda),
+        Offset(width / 2 - jarakBenda - (1 / 6 * (ukuranBenda)), height / 2),
         blue);
     canvas.drawLine(
-        Offset(width / 2 - jarakBenda - (1 / 4 * (tinggiBenda)),
-            height / 2 - tinggiBenda + (1 / 3 * (tinggiBenda))),
-        Offset(width / 2 - jarakBenda + (1 / 6 * (tinggiBenda)), height / 2),
+        Offset(width / 2 - jarakBenda - (1 / 4 * (ukuranBenda)),
+            height / 2 - ukuranBenda + (1 / 3 * (ukuranBenda))),
+        Offset(width / 2 - jarakBenda + (1 / 6 * (ukuranBenda)), height / 2),
         blue);
     canvas.drawLine(
-        Offset(width / 2 - jarakBenda + (1 / 4 * (tinggiBenda)),
-            height / 2 - tinggiBenda + (1 / 3 * (tinggiBenda))),
-        Offset(width / 2 - jarakBenda - (1 / 6 * (tinggiBenda)), height / 2),
+        Offset(width / 2 - jarakBenda + (1 / 4 * (ukuranBenda)),
+            height / 2 - ukuranBenda + (1 / 3 * (ukuranBenda))),
+        Offset(width / 2 - jarakBenda - (1 / 6 * (ukuranBenda)), height / 2),
         blue);
     canvas.drawLine(
-        Offset(width / 2 - jarakBenda + (1 / 4 * (tinggiBenda)),
-            height / 2 - tinggiBenda + (1 / 3 * (tinggiBenda))),
-        Offset(width / 2 - jarakBenda - (1 / 4 * (tinggiBenda)),
-            height / 2 - tinggiBenda + (1 / 3 * (tinggiBenda))),
+        Offset(width / 2 - jarakBenda + (1 / 4 * (ukuranBenda)),
+            height / 2 - ukuranBenda + (1 / 3 * (ukuranBenda))),
+        Offset(width / 2 - jarakBenda - (1 / 4 * (ukuranBenda)),
+            height / 2 - ukuranBenda + (1 / 3 * (ukuranBenda))),
         blue);
-    //bayangan
-    canvas.drawLine(
-        Offset(width / 2 - jarakBayangan(jarakBenda, titikFokus),
-            height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
-        Offset(
-            width / 2 -
-                jarakBayangan(jarakBenda, titikFokus) +
-                (1 / 6 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
-            height / 2),
-        green);
-    canvas.drawLine(
-        Offset(width / 2 - jarakBayangan(jarakBenda, titikFokus),
-            height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
-        Offset(
-            width / 2 -
-                jarakBayangan(jarakBenda, titikFokus) -
-                (1 / 6 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
-            height / 2),
-        green);
-    canvas.drawLine(
-        Offset(
-            width / 2 -
-                jarakBayangan(jarakBenda, titikFokus) -
-                (1 / 4 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
-            height / 2 +
-                tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) -
-                (1 /
-                    3 *
-                    (tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)))),
-        Offset(
-            width / 2 -
-                jarakBayangan(jarakBenda, titikFokus) +
-                (1 / 6 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
-            height / 2),
-        green);
-    canvas.drawLine(
-        Offset(
-            width / 2 -
-                jarakBayangan(jarakBenda, titikFokus) +
-                (1 / 4 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
-            height / 2 +
-                tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) -
-                (1 /
-                    3 *
-                    (tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)))),
-        Offset(
-            width / 2 -
-                jarakBayangan(jarakBenda, titikFokus) -
-                (1 / 6 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
-            height / 2),
-        green);
-    canvas.drawLine(
-        Offset(
-            width / 2 -
-                jarakBayangan(jarakBenda, titikFokus) +
-                (1 / 4 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
-            height / 2 +
-                tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) -
-                (1 /
-                    3 *
-                    (tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)))),
-        Offset(
-            width / 2 -
-                jarakBayangan(jarakBenda, titikFokus) -
-                (1 / 4 * tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)),
-            height / 2 +
-                tinggiBayangan(tinggiBenda, jarakBenda, titikFokus) -
-                (1 /
-                    3 *
-                    (tinggiBayangan(tinggiBenda, jarakBenda, titikFokus)))),
-        green);
+    if (jarakBenda != titikFokus) {
+      //bayangan
+      canvas.drawLine(
+          Offset(width / 2 - jarakBayangan(jarakBenda, titikFokus),
+              height / 2 + ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)),
+          Offset(
+              width / 2 -
+                  jarakBayangan(jarakBenda, titikFokus) +
+                  (1 / 6 * ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)),
+              height / 2),
+          green);
+      canvas.drawLine(
+          Offset(width / 2 - jarakBayangan(jarakBenda, titikFokus),
+              height / 2 + ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)),
+          Offset(
+              width / 2 -
+                  jarakBayangan(jarakBenda, titikFokus) -
+                  (1 / 6 * ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)),
+              height / 2),
+          green);
+      canvas.drawLine(
+          Offset(
+              width / 2 -
+                  jarakBayangan(jarakBenda, titikFokus) -
+                  (1 / 4 * ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)),
+              height / 2 +
+                  ukuranBayangan(ukuranBenda, jarakBenda, titikFokus) -
+                  (1 /
+                      3 *
+                      (ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)))),
+          Offset(
+              width / 2 -
+                  jarakBayangan(jarakBenda, titikFokus) +
+                  (1 / 6 * ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)),
+              height / 2),
+          green);
+      canvas.drawLine(
+          Offset(
+              width / 2 -
+                  jarakBayangan(jarakBenda, titikFokus) +
+                  (1 / 4 * ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)),
+              height / 2 +
+                  ukuranBayangan(ukuranBenda, jarakBenda, titikFokus) -
+                  (1 /
+                      3 *
+                      (ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)))),
+          Offset(
+              width / 2 -
+                  jarakBayangan(jarakBenda, titikFokus) -
+                  (1 / 6 * ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)),
+              height / 2),
+          green);
+      canvas.drawLine(
+          Offset(
+              width / 2 -
+                  jarakBayangan(jarakBenda, titikFokus) +
+                  (1 / 4 * ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)),
+              height / 2 +
+                  ukuranBayangan(ukuranBenda, jarakBenda, titikFokus) -
+                  (1 /
+                      3 *
+                      (ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)))),
+          Offset(
+              width / 2 -
+                  jarakBayangan(jarakBenda, titikFokus) -
+                  (1 / 4 * ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)),
+              height / 2 +
+                  ukuranBayangan(ukuranBenda, jarakBenda, titikFokus) -
+                  (1 /
+                      3 *
+                      (ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)))),
+          green);
 
-    // sinar pantul
-    drawLine_sinarPantul(
+      // sinar pantul
+      drawLine_sinarPantul(
+          canvas,
+          width / 2,
+          height / 2 - ukuranBenda,
+          width / 2 - jarakBayangan(jarakBenda, titikFokus),
+          height / 2 + ukuranBayangan(ukuranBenda, jarakBenda, titikFokus),
+          purple);
+      drawLine(
+          canvas,
+          width / 2 - jarakBayangan(jarakBenda, titikFokus),
+          height / 2 + ukuranBayangan(ukuranBenda, jarakBenda, titikFokus),
+          width / 2,
+          height / 2 + ukuranBayangan(ukuranBenda, jarakBenda, titikFokus),
+          purple);
+      // sinar datang
+      drawLine(
         canvas,
+        width / 2 - jarakBenda,
+        height / 2 - ukuranBenda,
         width / 2,
-        height / 2 - tinggiBenda,
-        width / 2 - jarakBayangan(jarakBenda, titikFokus),
-        height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus),
-        purple);
-    drawLine(
-        canvas,
-        width / 2 - jarakBayangan(jarakBenda, titikFokus),
-        height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus),
-        width / 2,
-        height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus),
-        purple);
-    // sinar datang
-    drawLine(
-      canvas,
-      width / 2 - jarakBenda,
-      height / 2 - tinggiBenda,
-      width / 2,
-      height / 2 + tinggiBayangan(tinggiBenda, jarakBenda, titikFokus),
-      red,
-    );
+        height / 2 + ukuranBayangan(ukuranBenda, jarakBenda, titikFokus),
+        red,
+      );
 
-    drawLine(
-      canvas,
-      width / 2 - jarakBenda,
-      height / 2 - tinggiBenda,
-      width / 2,
-      height / 2 - tinggiBenda,
-      red,
-    );
+      drawLine(
+        canvas,
+        width / 2 - jarakBenda,
+        height / 2 - ukuranBenda,
+        width / 2,
+        height / 2 - ukuranBenda,
+        red,
+      );
+    } else {
+      // sinar datang
+      drawLine(
+        canvas,
+        width / 2 - jarakBenda,
+        height / 2 - ukuranBenda,
+        width / 2 - jarakBenda,
+        height / 2,
+        red,
+      );
+
+      drawLine(
+        canvas,
+        width / 2 - jarakBenda,
+        height / 2 - ukuranBenda,
+        width / 2,
+        height / 2 - ukuranBenda,
+        red,
+      );
+    }
 
     canvas.drawParagraph(
         _buildParagraph(
