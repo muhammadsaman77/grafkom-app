@@ -6,16 +6,11 @@ class DCanvas extends CustomPainter {
   late double height, width, ukuranBenda, jarakBenda, titikFokus;
   // double DjarakBayangan = 0;
   DCanvas(
-      {required double height,
-      required double width,
-      required double titikFokus,
-      required double ukuranBenda,
-      required double jarakBenda}) {
-    this.height = height;
-    this.width = width;
-    this.ukuranBenda = ukuranBenda;
-    this.jarakBenda = jarakBenda;
-    this.titikFokus = titikFokus;
+      {required this.height,
+      required this.width,
+      required this.titikFokus,
+      required this.ukuranBenda,
+      required this.jarakBenda}) {
     // this.jarakBayangan = 0;
   }
   static double jarakBayangan(jarakBenda, titikFokus) {
@@ -55,7 +50,7 @@ class DCanvas extends CustomPainter {
     }
   }
 
-  void drawLine_sinarPantul(
+  void drawlineSinarPantul(
       Canvas canvas, double x1, double y1, double x2, double y2, Paint paint) {
     double dx = x2 - x1;
     double dy = y2 - y1;
@@ -76,7 +71,7 @@ class DCanvas extends CustomPainter {
     }
   }
 
-  void drawLine_sinarPantul2(
+  void drawLineSinarPantul2(
       Canvas canvas, double x1, double y1, double x2, double y2, Paint paint) {
     double dx = x2 - x1;
     double dy = y2 - y1;
@@ -113,7 +108,7 @@ class DCanvas extends CustomPainter {
     paragraphBuilder.addText(text);
 
     final paragraph = paragraphBuilder.build();
-    paragraph.layout(ParagraphConstraints(width: 300));
+    paragraph.layout(const ParagraphConstraints(width: 300));
 
     return paragraph;
   }
@@ -245,7 +240,7 @@ class DCanvas extends CustomPainter {
           green);
 
       // sinar pantul
-      drawLine_sinarPantul(
+      drawlineSinarPantul(
           canvas,
           width / 2,
           height / 2 - ukuranBenda,

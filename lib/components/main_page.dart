@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:grafkom_app/components/DTextField.dart';
-import 'package:grafkom_app/components/DCanvas.dart';
-import 'package:grafkom_app/components/InitGraph.dart';
+import 'package:grafkom_app/components/text_field.dart';
+import 'package:grafkom_app/components/canvas.dart';
+import 'package:grafkom_app/components/init_graph.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
   @override
   State<MainPage> createState() => _MainPageState();
 }
@@ -78,7 +79,7 @@ class _MainPageState extends State<MainPage> {
                     children: [
                       Row(
                         children: [
-                          Text('h'),
+                          const Text('h'),
                           SfSlider(
                             min: -300,
                             max: 300,
@@ -117,7 +118,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                       Row(
                         children: [
-                          Text('s'),
+                          const Text('s'),
                           SfSlider(
                             min: -640,
                             max: 640,
@@ -160,7 +161,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                       Row(
                         children: [
-                          Text('f'),
+                          const Text('f'),
                           SfSlider(
                             min: -640,
                             max: 640,
@@ -203,32 +204,32 @@ class _MainPageState extends State<MainPage> {
                       ),
                       Row(
                         children: [
-                          Text("h'"),
-                          SizedBox(
+                          const Text("h'"),
+                          const SizedBox(
                             width: 190,
                           ),
-                          Container(
+                          SizedBox(
                             width: 50,
                             height: 40,
                             child: Text(
                               ukuranBayangan.toString(),
-                              style: TextStyle(fontSize: 14),
+                              style: const TextStyle(fontSize: 14),
                             ),
                           )
                         ],
                       ),
                       Row(
                         children: [
-                          Text("s'"),
-                          SizedBox(
+                          const Text("s'"),
+                          const SizedBox(
                             width: 190,
                           ),
-                          Container(
+                          SizedBox(
                             width: 50,
                             height: 40,
                             child: Text(
                               jarakBayangan.toString(),
-                              style: TextStyle(fontSize: 14),
+                              style: const TextStyle(fontSize: 14),
                             ),
                           )
                         ],
@@ -245,7 +246,9 @@ class _MainPageState extends State<MainPage> {
               isShow = !isShow;
             });
           },
-          child: isShow == true ? Icon(Icons.close) : Icon(Icons.edit)),
+          child: isShow == true
+              ? const Icon(Icons.close)
+              : const Icon(Icons.edit)),
     );
   }
 }
