@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:grafkom_app/components/DCanvas.dart';
 
 class InitGraph extends StatelessWidget {
-  double tinggiBenda, jarakBenda, titikFokus;
+  double ukuranBenda, jarakBenda, titikFokus;
   InitGraph(
-      {required this.tinggiBenda,
+      {required this.ukuranBenda,
       required this.jarakBenda,
       required this.titikFokus});
   @override
@@ -16,7 +16,7 @@ class InitGraph extends StatelessWidget {
             height: size.height,
             width: size.width,
             titikFokus: titikFokus,
-            tinggiBenda: tinggiBenda,
+            ukuranBenda: ukuranBenda,
             jarakBenda: jarakBenda),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grafkom_app/components/DTextField.dart';
 import 'package:grafkom_app/components/DCanvas.dart';
 import 'package:grafkom_app/components/InitGraph.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -9,27 +10,27 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  static double tinggi = 128;
+  static double ukuran = 128;
   static double jarak = 184;
   static double titikFokus = 84;
   static double jarakBayangan = DCanvas.jarakBayangan(jarak, titikFokus);
-  static double tinggiBayangan =
-      DCanvas.tinggiBayangan(tinggi, jarak, titikFokus);
+  static double ukuranBayangan =
+      DCanvas.ukuranBayangan(ukuran, jarak, titikFokus);
 
   // DCanvas Dgraph = DCanvas()
   // static double
   TextEditingController jarakField =
       TextEditingController(text: jarak.toString());
-  TextEditingController tinggiField =
-      TextEditingController(text: tinggi.toString());
+  TextEditingController ukuranField =
+      TextEditingController(text: ukuran.toString());
   TextEditingController titikFokusField =
       TextEditingController(text: titikFokus.toString());
   bool isShow = false;
   _MainPageState() {
-    tinggiField.addListener(() {
+    ukuranField.addListener(() {
       setState(() {
-        tinggi = double.parse(tinggiField.text);
-        tinggiBayangan = DCanvas.tinggiBayangan(tinggi, jarak, titikFokus);
+        ukuran = double.parse(ukuranField.text);
+        ukuranBayangan = DCanvas.ukuranBayangan(ukuran, jarak, titikFokus);
       });
     });
     jarakField.addListener(() {
@@ -42,7 +43,7 @@ class _MainPageState extends State<MainPage> {
       setState(() {
         titikFokus = double.parse(titikFokusField.text);
         jarakBayangan = DCanvas.jarakBayangan(jarak, titikFokus);
-        tinggiBayangan = DCanvas.tinggiBayangan(tinggi, jarak, titikFokus);
+        ukuranBayangan = DCanvas.ukuranBayangan(ukuran, jarak, titikFokus);
       });
     });
   }
@@ -56,7 +57,7 @@ class _MainPageState extends State<MainPage> {
         InitGraph(
           titikFokus: titikFokus,
           jarakBenda: jarak,
-          tinggiBenda: tinggi,
+          ukuranBenda: ukuran,
         ),
         Container(
           margin: EdgeInsets.only(
@@ -78,64 +79,125 @@ class _MainPageState extends State<MainPage> {
                       Row(
                         children: [
                           Text('h'),
-                          Slider(
-                            min: -size.height / 2,
-                            max: size.height / 2,
-                            value: tinggi,
-                            onChanged: (value) {
+                          SfSlider(
+                            min: -300,
+                            max: 300,
+                            value: ukuran,
+                            interval: 150,
+                            showTicks: true,
+                            showLabels: true,
+                            enableTooltip: true,
+                            minorTicksPerInterval: 1,
+                            onChanged: (dynamic value) {
                               setState(() {
-                                tinggi = value;
-                                tinggiBayangan = DCanvas.tinggiBayangan(
-                                    tinggi, jarak, titikFokus);
-                                tinggiField = TextEditingController(
-                                    text: tinggi.toString());
+                                ukuran = value;
+                                ukuranBayangan = DCanvas.ukuranBayangan(
+                                    ukuran, jarak, titikFokus);
+                                ukuranField = TextEditingController(
+                                    text: ukuran.toString());
                               });
                             },
                           ),
-                          DTextField(controller: tinggiField),
+                          // Slider(
+                          //   min: -size.height / 2,
+                          //   max: size.height / 2,
+                          //   value: ukuran,
+                          //   onChanged: (value) {
+                          //     setState(() {
+                          //       ukuran = value;
+                          //       ukuranBayangan = DCanvas.ukuranBayangan(
+                          //           ukuran, jarak, titikFokus);
+                          //       ukuranField = TextEditingController(
+                          //           text: ukuran.toString());
+                          //     });
+                          //   },
+                          // ),
+                          DTextField(controller: ukuranField),
                         ],
                       ),
                       Row(
                         children: [
                           Text('s'),
-                          Slider(
-                            min: 0,
-                            max: size.width / 2,
+                          SfSlider(
+                            min: -640,
+                            max: 640,
                             value: jarak,
-                            onChanged: (value) {
+                            interval: 320,
+                            showTicks: true,
+                            showLabels: true,
+                            enableTooltip: true,
+                            minorTicksPerInterval: 1,
+                            onChanged: (dynamic value) {
                               setState(() {
                                 jarak = value;
                                 jarakField = TextEditingController(
                                     text: jarak.toString());
                                 jarakBayangan =
                                     DCanvas.jarakBayangan(jarak, titikFokus);
-                                tinggiBayangan = DCanvas.tinggiBayangan(
-                                    tinggi, jarak, titikFokus);
+                                ukuranBayangan = DCanvas.ukuranBayangan(
+                                    ukuran, jarak, titikFokus);
                               });
                             },
                           ),
+                          // Slider(
+                          //   min: -size.width / 2,
+                          //   max: size.width / 2,
+                          //   value: jarak,
+                          //   onChanged: (value) {
+                          //     setState(() {
+                          //       jarak = value;
+                          //       jarakField = TextEditingController(
+                          //           text: jarak.toString());
+                          //       jarakBayangan =
+                          //           DCanvas.jarakBayangan(jarak, titikFokus);
+                          //       ukuranBayangan = DCanvas.ukuranBayangan(
+                          //           ukuran, jarak, titikFokus);
+                          //     });
+                          //   },
+                          // ),
                           DTextField(controller: jarakField)
                         ],
                       ),
                       Row(
                         children: [
                           Text('f'),
-                          Slider(
-                            min: 0,
-                            max: size.width / 2,
+                          SfSlider(
+                            min: -640,
+                            max: 640,
                             value: titikFokus,
-                            onChanged: (value) {
+                            interval: 320,
+                            showTicks: true,
+                            showLabels: true,
+                            enableTooltip: true,
+                            minorTicksPerInterval: 1,
+                            onChanged: (dynamic value) {
                               setState(() {
                                 titikFokus = value;
                                 titikFokusField = TextEditingController(
                                     text: titikFokus.toString());
                                 jarakBayangan =
                                     DCanvas.jarakBayangan(jarak, titikFokus);
-                                tinggiBayangan = DCanvas.tinggiBayangan(
-                                    tinggi, jarak, titikFokus);
+                                ukuranBayangan = DCanvas.ukuranBayangan(
+                                    ukuran, jarak, titikFokus);
                               });
                             },
                           ),
+                          // Slider(
+                          //   min: -size.width / 2,
+                          //   max: size.width / 2,
+                          //   value: titikFokus,
+                          //   onChanged: (value) {
+                          //     setState(() {
+                          //       titikFokus = value;
+                          //       titikFokusField = TextEditingController(
+                          //           text: titikFokus.toString());
+                          //       jarakBayangan =
+                          //           DCanvas.jarakBayangan(jarak, titikFokus);
+                          //       ukuranBayangan = DCanvas.ukuranBayangan(
+                          //           ukuran, jarak, titikFokus);
+                          //     });
+                          //   },
+                          // ),
                           DTextField(controller: titikFokusField)
                         ],
                       ),
@@ -149,7 +211,7 @@ class _MainPageState extends State<MainPage> {
                             width: 50,
                             height: 40,
                             child: Text(
-                              tinggiBayangan.toString(),
+                              ukuranBayangan.toString(),
                               style: TextStyle(fontSize: 14),
                             ),
                           )
