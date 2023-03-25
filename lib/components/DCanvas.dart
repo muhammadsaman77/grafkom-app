@@ -4,7 +4,6 @@ import 'dart:ui';
 
 class DCanvas extends CustomPainter {
   late double height, width, tinggiBenda, jarakBenda, titikFokus;
-  // double DjarakBayangan = 0;
   DCanvas(
       {required double height,
       required double width,
@@ -16,7 +15,6 @@ class DCanvas extends CustomPainter {
     this.tinggiBenda = tinggiBenda;
     this.jarakBenda = jarakBenda;
     this.titikFokus = titikFokus;
-    // this.jarakBayangan = 0;
   }
   static double jarakBayangan(jarakBenda, titikFokus) {
     return (jarakBenda * titikFokus) / (jarakBenda - titikFokus);

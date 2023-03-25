@@ -46,6 +46,7 @@ class _MainPageState extends State<MainPage> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -60,14 +61,8 @@ class _MainPageState extends State<MainPage> {
         Container(
           margin: EdgeInsets.only(
               top: size.height * 4 / 8, left: size.width * 12 / 16),
-          // bottom: ,
-          // top: 20,
-          // right: -100,
           child: Visibility(
             visible: isShow,
-            // bottom: 0,
-            // top: 500,
-            // offset: Offset(size.width * 12 / 16, size.height * 4 / 8),
             child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
