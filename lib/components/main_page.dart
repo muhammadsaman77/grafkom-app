@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grafkom_app/components/instruction.dart';
 import 'package:grafkom_app/components/text_field.dart';
 import 'package:grafkom_app/components/canvas.dart';
 import 'package:grafkom_app/components/init_graph.dart';
@@ -62,7 +63,7 @@ class _MainPageState extends State<MainPage> {
         ),
         Container(
           margin: EdgeInsets.only(
-              top: size.height * 4 / 8, left: size.width * 12 / 16),
+              top: size.height * 3 / 8 + 30, left: size.width * 12 / 16),
           child: Visibility(
             visible: isShow,
             child: Container(
@@ -71,7 +72,7 @@ class _MainPageState extends State<MainPage> {
                   color: Colors.black.withOpacity(0.1),
                 ),
                 width: 350,
-                height: 350,
+                height: 400,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -212,7 +213,7 @@ class _MainPageState extends State<MainPage> {
                             width: 50,
                             height: 40,
                             child: Text(
-                              ukuranBayangan.toString(),
+                              ukuranBayangan.ceil().toString(),
                               style: const TextStyle(fontSize: 14),
                             ),
                           )
@@ -228,12 +229,33 @@ class _MainPageState extends State<MainPage> {
                             width: 50,
                             height: 40,
                             child: Text(
-                              jarakBayangan.toString(),
+                              jarakBayangan.ceil().toString(),
                               style: const TextStyle(fontSize: 14),
                             ),
                           )
                         ],
                       ),
+                      const Instruction(
+                        title: 'Benda',
+                        color: Colors.blue,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Instruction(
+                        title: 'Bayangan',
+                        color: Colors.green,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Instruction(
+                          title: 'Garis Benda', color: Colors.red),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Instruction(
+                          title: 'Garis Bayangan', color: Colors.purpleAccent)
                     ],
                   ),
                 )),
