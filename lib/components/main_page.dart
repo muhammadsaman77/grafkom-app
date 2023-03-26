@@ -21,11 +21,11 @@ class _MainPageState extends State<MainPage> {
 
   // DCanvas Dgraph = DCanvas()
   // static double
-  TextEditingController jarakField =
+  static TextEditingController jarakField =
       TextEditingController(text: jarak.toString());
-  TextEditingController ukuranField =
+  static TextEditingController ukuranField =
       TextEditingController(text: ukuran.toString());
-  TextEditingController titikFokusField =
+  static TextEditingController titikFokusField =
       TextEditingController(text: titikFokus.toString());
   bool isShow = false;
   @override
@@ -239,27 +239,46 @@ class _MainPageState extends State<MainPage> {
                           )
                         ],
                       ),
-                      const Instruction(
-                        title: 'Benda',
-                        color: Colors.blue,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Instruction(
-                        title: 'Bayangan',
-                        color: Colors.green,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Instruction(
-                          title: 'Garis Benda', color: Colors.red),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Instruction(
-                          title: 'Garis Bayangan', color: Colors.purpleAccent)
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Instruction(
+                                title: 'Benda',
+                                color: Colors.blue,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Instruction(
+                                title: 'Bayangan',
+                                color: Colors.green,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Instruction(
+                                  title: 'Garis Benda', color: Colors.red),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Instruction(
+                                  title: 'Garis Bayangan',
+                                  color: Colors.purpleAccent)
+                            ],
+                          ),
+                          ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  jarak = titikFokus;
+                                });
+                              },
+                              child: Text('Set To Focus'))
+                        ],
+                      )
                     ],
                   ),
                 )),
