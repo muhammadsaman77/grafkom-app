@@ -1,9 +1,7 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 class DTextField extends StatelessWidget {
-  final FunctionStringCallback onChanged;
+  final Function(String)? onChanged;
   final TextEditingController controller;
   const DTextField(
       {Key? key, required this.controller, required this.onChanged})
