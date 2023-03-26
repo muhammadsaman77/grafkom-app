@@ -147,9 +147,9 @@ class DCanvas extends CustomPainter {
     canvas.drawLine(Offset(0, height / 2), Offset(width, height / 2), black);
 
     Path path = Path();
-    path.moveTo(width / 2 - titikFokus, 0);
-    path.quadraticBezierTo(
-        width / 2 + titikFokus, height / 2, width / 2 - titikFokus, height);
+    path.moveTo(width / 2 - 1 / 2 * titikFokus, 0);
+    path.quadraticBezierTo(width / 2 + 1 / 2 * titikFokus, height / 2,
+        width / 2 - 1 / 2 * titikFokus, height);
     canvas.drawPath(path, lightGreen);
 
     //benda
