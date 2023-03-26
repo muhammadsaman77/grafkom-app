@@ -29,7 +29,7 @@ class _MainPageState extends State<MainPage> {
 
   bool isShow = false;
   String sifatBayangan() {
-    if (jarak < titikFokus) {
+    if (jarak <= titikFokus) {
       return 'Sifat Bayangan: maya, tegak, diperbesar';
     } else if (jarak > titikFokus && jarak < 2 * titikFokus) {
       return 'Sifat Bayangan: nyata, terbalik, diperbesar';
