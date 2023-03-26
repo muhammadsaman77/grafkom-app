@@ -238,7 +238,7 @@ class DCanvas extends CustomPainter {
                       3 *
                       (ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)))),
           green);
-
+      canvas.drawCircle(Offset(width / 2, height / 2), 50, green);
       // sinar pantul
       drawlineSinarPantul(
           canvas,
