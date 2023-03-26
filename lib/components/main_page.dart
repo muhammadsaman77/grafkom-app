@@ -14,7 +14,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   static double ukuran = 128;
   static double jarak = 184;
-  static double titikFokus = 84;
+  static double titikFokus = 60;
   static double jarakBayangan = DCanvas.jarakBayangan(jarak, titikFokus);
   static double ukuranBayangan =
       DCanvas.ukuranBayangan(ukuran, jarak, titikFokus);
@@ -28,6 +28,14 @@ class _MainPageState extends State<MainPage> {
   TextEditingController titikFokusField =
       TextEditingController(text: titikFokus.toString());
   bool isShow = false;
+  @override
+  dispose() {
+    jarakField.dispose();
+    ukuranField.dispose();
+    titikFokusField.dispose();
+    super.dispose();
+  }
+
   _MainPageState() {
     ukuranField.addListener(() {
       setState(() {
@@ -99,6 +107,8 @@ class _MainPageState extends State<MainPage> {
                                     text: ukuran.toString());
                               });
                             },
+                            activeColor: Colors.green,
+                            inactiveColor: Colors.lightGreen,
                           ),
                           // Slider(
                           //   min: -size.height / 2,
@@ -121,7 +131,7 @@ class _MainPageState extends State<MainPage> {
                         children: [
                           const Text('s'),
                           SfSlider(
-                            min: -640,
+                            min: 0,
                             max: 640,
                             value: jarak,
                             interval: 320,
@@ -140,23 +150,9 @@ class _MainPageState extends State<MainPage> {
                                     ukuran, jarak, titikFokus);
                               });
                             },
+                            activeColor: Colors.green,
+                            inactiveColor: Colors.lightGreen,
                           ),
-                          // Slider(
-                          //   min: -size.width / 2,
-                          //   max: size.width / 2,
-                          //   value: jarak,
-                          //   onChanged: (value) {
-                          //     setState(() {
-                          //       jarak = value;
-                          //       jarakField = TextEditingController(
-                          //           text: jarak.toString());
-                          //       jarakBayangan =
-                          //           DCanvas.jarakBayangan(jarak, titikFokus);
-                          //       ukuranBayangan = DCanvas.ukuranBayangan(
-                          //           ukuran, jarak, titikFokus);
-                          //     });
-                          //   },
-                          // ),
                           DTextField(controller: jarakField)
                         ],
                       ),
@@ -164,7 +160,7 @@ class _MainPageState extends State<MainPage> {
                         children: [
                           const Text('f'),
                           SfSlider(
-                            min: -640,
+                            min: 0,
                             max: 640,
                             value: titikFokus,
                             interval: 320,
@@ -183,6 +179,8 @@ class _MainPageState extends State<MainPage> {
                                     ukuran, jarak, titikFokus);
                               });
                             },
+                            activeColor: Colors.green,
+                            inactiveColor: Colors.lightGreen,
                           ),
                           // Slider(
                           //   min: -size.width / 2,
