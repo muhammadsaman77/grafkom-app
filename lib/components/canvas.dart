@@ -141,6 +141,7 @@ class DCanvas extends CustomPainter {
     canvas.drawLine(Offset(width / 2, 0), Offset(width / 2, height), black);
     //sumbu x
     canvas.drawLine(Offset(0, height / 2), Offset(width, height / 2), black);
+    canvas.drawCircle(Offset(width / 2, height / 2), 50, green);
     //benda
     canvas.drawLine(
         Offset(width / 2 - jarakBenda, height / 2 - ukuranBenda),
@@ -238,7 +239,7 @@ class DCanvas extends CustomPainter {
                       3 *
                       (ukuranBayangan(ukuranBenda, jarakBenda, titikFokus)))),
           green);
-      canvas.drawCircle(Offset(width / 2, height / 2), 50, green);
+
       // sinar pantul
       drawlineSinarPantul(
           canvas,
@@ -295,20 +296,12 @@ class DCanvas extends CustomPainter {
 
     canvas.drawParagraph(
         _buildParagraph(
-            'r', const TextStyle(fontSize: 14, color: Colors.black)),
+            'r', const TextStyle(fontSize: 14, color: Colors.lightGreen)),
         Offset(width / 2 - titikFokus * 2, height / 2));
     canvas.drawParagraph(
         _buildParagraph(
-            'r', const TextStyle(fontSize: 14, color: Colors.black)),
-        Offset(width / 2 + titikFokus * 2, height / 2));
-    canvas.drawParagraph(
-        _buildParagraph(
-            'f', const TextStyle(fontSize: 14, color: Colors.black)),
+            'f', const TextStyle(fontSize: 14, color: Colors.orange)),
         Offset(width / 2 - titikFokus, height / 2));
-    canvas.drawParagraph(
-        _buildParagraph(
-            'f', const TextStyle(fontSize: 14, color: Colors.black)),
-        Offset(width / 2 + titikFokus, height / 2));
     canvas.drawParagraph(
         _buildParagraph(
             'Area I', const TextStyle(fontSize: 12, color: Colors.black)),

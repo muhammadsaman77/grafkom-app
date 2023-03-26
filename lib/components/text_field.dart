@@ -1,8 +1,13 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 class DTextField extends StatelessWidget {
+  final FunctionStringCallback onChanged;
   final TextEditingController controller;
-  const DTextField({Key? key, required this.controller}) : super(key: key);
+  const DTextField(
+      {Key? key, required this.controller, required this.onChanged})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +15,7 @@ class DTextField extends StatelessWidget {
       width: 50,
       height: 40,
       child: TextField(
+        onChanged: onChanged,
         controller: controller,
         style: const TextStyle(fontSize: 14),
         decoration: const InputDecoration(
