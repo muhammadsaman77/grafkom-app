@@ -145,10 +145,11 @@ class DCanvas extends CustomPainter {
     canvas.drawLine(Offset(width / 2, 0), Offset(width / 2, height), black);
     //sumbu x
     canvas.drawLine(Offset(0, height / 2), Offset(width, height / 2), black);
+
     Path path = Path();
     path.moveTo(width / 2 - titikFokus, 0);
     path.quadraticBezierTo(
-        width / 2, height / 2, width / 2 - titikFokus, height);
+        width / 2 + titikFokus, height / 2, width / 2 - titikFokus, height);
     canvas.drawPath(path, lightGreen);
 
     //benda
