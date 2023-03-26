@@ -19,8 +19,8 @@ class _MainPageState extends State<MainPage> {
   TextEditingController titikFokusField =
       TextEditingController(text: titikFokus.toString());
   static double ukuran = 128;
-  static double jarak = 184;
-  static double titikFokus = 160;
+  static double jarak = 450;
+  static double titikFokus = 200;
   static double jarakBayangan = DCanvas.jarakBayangan(jarak, titikFokus);
   static double ukuranBayangan =
       DCanvas.ukuranBayangan(ukuran, jarak, titikFokus);
@@ -127,7 +127,7 @@ class _MainPageState extends State<MainPage> {
                                   ),
                                   SizedBox(
                                     width: 50,
-                                    height: 15,
+                                    height: 20,
                                     child: Text(
                                       ukuranBayangan.toString(),
                                       style: const TextStyle(fontSize: 14),
@@ -182,7 +182,7 @@ class _MainPageState extends State<MainPage> {
                                   ),
                                   SizedBox(
                                     width: 50,
-                                    height: 15,
+                                    height: 20,
                                     child: Text(
                                       jarakBayangan.toString(),
                                       style: const TextStyle(fontSize: 14),
@@ -237,7 +237,7 @@ class _MainPageState extends State<MainPage> {
                                   ),
                                   SizedBox(
                                     width: 50,
-                                    height: 15,
+                                    height: 20,
                                     child: Text(
                                       (ukuranBayangan / ukuran)
                                           .abs()
@@ -275,12 +275,12 @@ class _MainPageState extends State<MainPage> {
                                   height: 10,
                                 ),
                                 Instruction(
-                                    title: 'Garis Benda', color: Colors.red),
+                                    title: 'Sinar Datang', color: Colors.red),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Instruction(
-                                    title: 'Garis Bayangan',
+                                    title: 'Sinar Pantul',
                                     color: Colors.purpleAccent)
                               ],
                             ),
