@@ -106,6 +106,8 @@ class _MainPageState extends State<MainPage> {
                                     text: ukuran.toString());
                               });
                             },
+                            activeColor: Colors.green,
+                            inactiveColor: Colors.lightGreen,
                           ),
                           // Slider(
                           //   min: -size.height / 2,
@@ -127,31 +129,28 @@ class _MainPageState extends State<MainPage> {
                       Row(
                         children: [
                           const Text('s'),
-                          GestureDetector(
-                            onTap: () => FocusScope.of(context).unfocus(),
-                            child: SfSlider(
-                              min: 0,
-                              max: 640,
-                              value: jarak,
-                              interval: 320,
-                              showTicks: true,
-                              showLabels: true,
-                              enableTooltip: true,
-                              minorTicksPerInterval: 1,
-                              onChanged: (dynamic value) {
-                                setState(() {
-                                  jarak = value;
-                                  jarakField = TextEditingController(
-                                      text: jarak.toString());
-                                  jarakBayangan =
-                                      DCanvas.jarakBayangan(jarak, titikFokus);
-                                  ukuranBayangan = DCanvas.ukuranBayangan(
-                                      ukuran, jarak, titikFokus);
-                                });
-                              },
-                              activeColor: Colors.green,
-                              inactiveColor: Colors.lightGreen,
-                            ),
+                          SfSlider(
+                            min: 0,
+                            max: 640,
+                            value: jarak,
+                            interval: 320,
+                            showTicks: true,
+                            showLabels: true,
+                            enableTooltip: true,
+                            minorTicksPerInterval: 1,
+                            onChanged: (dynamic value) {
+                              setState(() {
+                                jarak = value;
+                                jarakField = TextEditingController(
+                                    text: jarak.toString());
+                                jarakBayangan =
+                                    DCanvas.jarakBayangan(jarak, titikFokus);
+                                ukuranBayangan = DCanvas.ukuranBayangan(
+                                    ukuran, jarak, titikFokus);
+                              });
+                            },
+                            activeColor: Colors.green,
+                            inactiveColor: Colors.lightGreen,
                           ),
                           DTextField(controller: jarakField)
                         ],
@@ -179,6 +178,8 @@ class _MainPageState extends State<MainPage> {
                                     ukuran, jarak, titikFokus);
                               });
                             },
+                            activeColor: Colors.green,
+                            inactiveColor: Colors.lightGreen,
                           ),
                           // Slider(
                           //   min: -size.width / 2,
