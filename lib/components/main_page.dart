@@ -28,8 +28,21 @@ class _MainPageState extends State<MainPage> {
   // static double
 
   bool isShow = false;
+  String sifatBayangan() {
+    if (jarak < titikFokus) {
+      return 'Sifat Bayangan: maya, tegak, diperbesar';
+    } else if (jarak > titikFokus && jarak < 2 * titikFokus) {
+      return 'Sifat Bayangan: nyata, terbalik, diperbesar';
+    } else if (jarak == 2 * titikFokus) {
+      return 'Sifat Bayangan: nyata, terbalik, sama besar';
+    } else if (jarak > 2 * titikFokus) {
+      return 'Sifat Bayangan: nyata, terbalik, diperkecil';
+    }
+    return '';
+  }
+
   @override
-  dispose() {
+  void dispose() {
     jarakField.dispose();
     ukuranField.dispose();
     titikFokusField.dispose();
@@ -71,7 +84,7 @@ class _MainPageState extends State<MainPage> {
                             children: [
                               Row(
                                 children: [
-                                  const Text('h'),
+                                  const Text('h:'),
                                   SfSlider(
                                     min: -300,
                                     max: 300,
@@ -108,7 +121,7 @@ class _MainPageState extends State<MainPage> {
                                   const SizedBox(
                                     width: 20,
                                   ),
-                                  const Text("h'"),
+                                  const Text("h':"),
                                   const SizedBox(
                                     width: 10,
                                   ),
@@ -124,7 +137,7 @@ class _MainPageState extends State<MainPage> {
                               ),
                               Row(
                                 children: [
-                                  const Text('s'),
+                                  const Text('s:'),
                                   SfSlider(
                                     min: 0,
                                     max: 640,
@@ -163,7 +176,7 @@ class _MainPageState extends State<MainPage> {
                                   const SizedBox(
                                     width: 20,
                                   ),
-                                  const Text("s'"),
+                                  const Text("s':"),
                                   const SizedBox(
                                     width: 10,
                                   ),
@@ -179,7 +192,7 @@ class _MainPageState extends State<MainPage> {
                               ),
                               Row(
                                 children: [
-                                  const Text('f'),
+                                  const Text('f:'),
                                   SfSlider(
                                     min: 0,
                                     max: 640,
@@ -218,7 +231,7 @@ class _MainPageState extends State<MainPage> {
                                   const SizedBox(
                                     width: 20,
                                   ),
-                                  const Text("M"),
+                                  const Text("M:"),
                                   const SizedBox(
                                     width: 10,
                                   ),
@@ -272,13 +285,19 @@ class _MainPageState extends State<MainPage> {
                               ],
                             ),
                             Container(
-                              margin: const EdgeInsets.only(left: 32),
+                              margin: const EdgeInsets.only(left: 28),
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                    margin: const EdgeInsets.only(bottom: 10),
+                                    width: 150,
+                                    child: Text(sifatBayangan()),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        bottom: 10, top: 10),
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.orange),
