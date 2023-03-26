@@ -49,7 +49,7 @@ class _MainPageState extends State<MainPage> {
         ),
         Container(
           margin: EdgeInsets.only(
-              top: size.height * 3 / 8 + 70, left: size.width * 12 / 16 - 10),
+              top: size.height * 3 / 8 + 60, left: size.width * 12 / 16 - 100),
           child: Visibility(
             visible: isShow,
             child: Container(
@@ -57,12 +57,13 @@ class _MainPageState extends State<MainPage> {
                   borderRadius: BorderRadius.circular(15),
                   color: const Color.fromARGB(255, 225, 222, 222),
                 ),
-                width: 370,
+                width: 400,
                 height: 350,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
@@ -104,6 +105,21 @@ class _MainPageState extends State<MainPage> {
                                       });
                                     },
                                   ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  const Text("h'"),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  SizedBox(
+                                    width: 50,
+                                    height: 15,
+                                    child: Text(
+                                      ukuranBayangan.toString(),
+                                      style: const TextStyle(fontSize: 14),
+                                    ),
+                                  )
                                 ],
                               ),
                               Row(
@@ -143,6 +159,21 @@ class _MainPageState extends State<MainPage> {
                                             jarak, titikFokus);
                                       });
                                     },
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  const Text("s'"),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  SizedBox(
+                                    width: 50,
+                                    height: 15,
+                                    child: Text(
+                                      jarakBayangan.toString(),
+                                      style: const TextStyle(fontSize: 14),
+                                    ),
                                   )
                                 ],
                               ),
@@ -183,64 +214,28 @@ class _MainPageState extends State<MainPage> {
                                             ukuran, jarak, titikFokus);
                                       });
                                     },
-                                  )
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  const Text("M"),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  SizedBox(
+                                    width: 50,
+                                    height: 15,
+                                    child: Text(
+                                      (ukuranBayangan / ukuran)
+                                          .abs()
+                                          .toString(),
+                                      style: const TextStyle(fontSize: 14),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],
                           ),
-                          Container(
-                            margin: const EdgeInsets.only(left: 10),
-                            child: Column(
-                              // mainAxisAlignment: MainAxisAlignment.start,
-                              // crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  // mainAxisAlignment: MainAxisAlignment.start,
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    const Text("h'"),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    SizedBox(
-                                      width: 50,
-                                      // height: 40,
-                                      child: Text(
-                                        ukuranBayangan == double.infinity ||
-                                                ukuranBayangan.isNaN ||
-                                                (ukuranBayangan ==
-                                                    -double.infinity)
-                                            ? ukuranBayangan.toString()
-                                            : ukuranBayangan.ceil().toString(),
-                                        style: const TextStyle(fontSize: 14),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    const Text("s'"),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    SizedBox(
-                                      width: 50,
-                                      // height: 40,
-                                      child: Text(
-                                        jarakBayangan == double.infinity ||
-                                                jarakBayangan.isNaN ||
-                                                (jarakBayangan ==
-                                                    -double.infinity)
-                                            ? jarakBayangan.toString()
-                                            : jarakBayangan.ceil().toString(),
-                                        style: const TextStyle(fontSize: 14),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
                         ],
                       ),
                       Container(
@@ -276,17 +271,38 @@ class _MainPageState extends State<MainPage> {
                                     color: Colors.purpleAccent)
                               ],
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(bottom: 10),
-                                  child: ElevatedButton(
+                            Container(
+                              margin: const EdgeInsets.only(left: 32),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(bottom: 10),
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.orange),
+                                        onPressed: () {
+                                          setState(() {
+                                            jarak = titikFokus;
+                                            jarakField = TextEditingController(
+                                                text: jarak.toString());
+                                            jarakBayangan =
+                                                DCanvas.jarakBayangan(
+                                                    jarak, titikFokus);
+                                            ukuranBayangan =
+                                                DCanvas.ukuranBayangan(
+                                                    ukuran, jarak, titikFokus);
+                                          });
+                                        },
+                                        child: const Text('Set To Focus ')),
+                                  ),
+                                  ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.orange),
+                                          backgroundColor: Colors.lightGreen),
                                       onPressed: () {
                                         setState(() {
-                                          jarak = titikFokus;
+                                          jarak = 2 * titikFokus;
                                           jarakField = TextEditingController(
                                               text: jarak.toString());
                                           jarakBayangan = DCanvas.jarakBayangan(
@@ -296,26 +312,9 @@ class _MainPageState extends State<MainPage> {
                                                   ukuran, jarak, titikFokus);
                                         });
                                       },
-                                      child: const Text('Set To Focus')),
-                                ),
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.lightGreen),
-                                    onPressed: () {
-                                      setState(() {
-                                        titikFokus * 2 <= 640
-                                            ? jarak = 2 * titikFokus
-                                            : jarak = 640;
-                                        jarakField = TextEditingController(
-                                            text: jarak.toString());
-                                        jarakBayangan = DCanvas.jarakBayangan(
-                                            jarak, titikFokus);
-                                        ukuranBayangan = DCanvas.ukuranBayangan(
-                                            ukuran, jarak, titikFokus);
-                                      });
-                                    },
-                                    child: const Text('Set To Radius')),
-                              ],
+                                      child: const Text('Set To Radius')),
+                                ],
+                              ),
                             )
                           ],
                         ),

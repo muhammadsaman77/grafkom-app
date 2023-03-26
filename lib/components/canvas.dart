@@ -135,13 +135,22 @@ class DCanvas extends CustomPainter {
       ..color = Colors.purpleAccent
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
+    final lightGreen = Paint()
+      ..color = Colors.lightGreen
+      ..strokeWidth = 1
+      ..style = PaintingStyle.stroke;
     double height = this.height;
     double width = this.width;
     //sumbu y
     canvas.drawLine(Offset(width / 2, 0), Offset(width / 2, height), black);
     //sumbu x
     canvas.drawLine(Offset(0, height / 2), Offset(width, height / 2), black);
-    canvas.drawCircle(Offset(width / 2, height / 2), 50, green);
+    Path path = Path();
+    path.moveTo(width / 2 - titikFokus, 0);
+    path.quadraticBezierTo(
+        width / 2, height / 2, width / 2 - titikFokus, height);
+    canvas.drawPath(path, lightGreen);
+
     //benda
     canvas.drawLine(
         Offset(width / 2 - jarakBenda, height / 2 - ukuranBenda),
@@ -296,12 +305,20 @@ class DCanvas extends CustomPainter {
 
     canvas.drawParagraph(
         _buildParagraph(
-            'r', const TextStyle(fontSize: 14, color: Colors.lightGreen)),
+            'r', const TextStyle(fontSize: 14, color: Colors.black)),
         Offset(width / 2 - titikFokus * 2, height / 2));
     canvas.drawParagraph(
         _buildParagraph(
-            'f', const TextStyle(fontSize: 14, color: Colors.orange)),
+            'r', const TextStyle(fontSize: 14, color: Colors.black)),
+        Offset(width / 2 + titikFokus * 2, height / 2));
+    canvas.drawParagraph(
+        _buildParagraph(
+            'f', const TextStyle(fontSize: 14, color: Colors.black)),
         Offset(width / 2 - titikFokus, height / 2));
+    canvas.drawParagraph(
+        _buildParagraph(
+            'f', const TextStyle(fontSize: 14, color: Colors.black)),
+        Offset(width / 2 + titikFokus, height / 2));
     canvas.drawParagraph(
         _buildParagraph(
             'Area I', const TextStyle(fontSize: 12, color: Colors.black)),
