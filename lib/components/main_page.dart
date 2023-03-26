@@ -211,7 +211,8 @@ class _MainPageState extends State<MainPage> {
                             width: 50,
                             height: 40,
                             child: Text(
-                              ukuranBayangan == double.infinity
+                              ukuranBayangan == double.infinity ||
+                                      ukuranBayangan.isNaN
                                   ? ukuranBayangan.toString()
                                   : ukuranBayangan.ceil().toString(),
                               style: const TextStyle(fontSize: 14),
@@ -229,7 +230,8 @@ class _MainPageState extends State<MainPage> {
                             width: 50,
                             height: 40,
                             child: Text(
-                              jarakBayangan == double.infinity
+                              jarakBayangan == double.infinity ||
+                                      jarakBayangan.isNaN
                                   ? jarakBayangan.toString()
                                   : jarakBayangan.ceil().toString(),
                               style: const TextStyle(fontSize: 14),
