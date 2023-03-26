@@ -311,7 +311,7 @@ class DCanvas extends CustomPainter {
 
     canvas.drawParagraph(
         _buildParagraph(
-            'f', const TextStyle(fontSize: 14, color: Colors.orange)),
+            'f', const TextStyle(fontSize: 14, color: Colors.blueGrey)),
         Offset(width / 2 - titikFokus, height / 2));
     canvas.drawParagraph(
         _buildParagraph(
@@ -327,6 +327,10 @@ class DCanvas extends CustomPainter {
             'Area III', const TextStyle(fontSize: 12, color: Colors.black)),
         Offset(width / 2 - (1 / 2 * titikFokus) - titikFokus * 2 - 10,
             height / 2 + 15));
+    canvas.drawParagraph(
+        _buildParagraph(
+            'Area IV', const TextStyle(fontSize: 12, color: Colors.black)),
+        Offset(width - 1 / 4 * width, height / 2 + 15));
   }
 
   @override

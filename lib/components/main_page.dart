@@ -20,7 +20,7 @@ class _MainPageState extends State<MainPage> {
       TextEditingController(text: titikFokus.toString());
   static double ukuran = 128;
   static double jarak = 184;
-  static double titikFokus = 60;
+  static double titikFokus = 160;
   static double jarakBayangan = DCanvas.jarakBayangan(jarak, titikFokus);
   static double ukuranBayangan =
       DCanvas.ukuranBayangan(ukuran, jarak, titikFokus);
@@ -300,7 +300,7 @@ class _MainPageState extends State<MainPage> {
                                         bottom: 10, top: 10),
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.orange),
+                                            backgroundColor: Colors.blueGrey),
                                         onPressed: () {
                                           setState(() {
                                             jarak = titikFokus;
