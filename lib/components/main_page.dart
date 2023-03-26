@@ -303,7 +303,9 @@ class _MainPageState extends State<MainPage> {
                                         backgroundColor: Colors.lightGreen),
                                     onPressed: () {
                                       setState(() {
-                                        jarak = 2 * titikFokus;
+                                        titikFokus * 2 <= 640
+                                            ? jarak = 2 * titikFokus
+                                            : jarak = 640;
                                         jarakField = TextEditingController(
                                             text: jarak.toString());
                                         jarakBayangan = DCanvas.jarakBayangan(
