@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:grafkom_app/components/instruction.dart';
-import 'package:grafkom_app/components/text_field.dart';
-import 'package:grafkom_app/components/canvas.dart';
-import 'package:grafkom_app/components/init_graph.dart';
+import 'package:grafkom_app/simulasi_cermin/components/instruction.dart';
+import 'package:grafkom_app/simulasi_cermin/components/text_field.dart';
+import 'package:grafkom_app/simulasi_cermin/components/canvas.dart';
+import 'package:grafkom_app/simulasi_cermin/components/init_graph.dart';
+import 'package:grafkom_app/simulasi_glbb/main_page.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class MainPage extends StatefulWidget {
@@ -53,8 +54,45 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SafeArea(
-          child: Stack(children: [
+      appBar: AppBar(),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Graphkom',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: Text("Simulasi Cermin"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text("Simulasi GLBB"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return MainPageGLBB();
+                  },
+                ));
+              },
+            ),
+          ],
+        ),
+      ),
+      body: Stack(children: [
         InitGraph(
           titikFokus: titikFokus,
           jarakBenda: jarak,
@@ -343,7 +381,7 @@ class _MainPageState extends State<MainPage> {
                 )),
           ),
         ),
-      ])),
+      ]),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
             setState(() {
