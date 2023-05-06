@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grafkom_app/components/canvas.dart';
+import 'package:grafkom_app/simulasi_cermin/components/canvas.dart';
 
 @immutable
 class InitGraph extends StatelessWidget {
