@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:grafkom_app/simulasi_cermin/components/main_page.dart';
+import 'package:grafkom_app/simulasi_glbb/combo_button.dart';
 
-class MainPageGLBB extends StatelessWidget {
+class MainPageGLBB extends StatefulWidget {
+  const MainPageGLBB({super.key});
+
+  @override
+  State<MainPageGLBB> createState() => _MainPageGLBBState();
+}
+
+class _MainPageGLBBState extends State<MainPageGLBB> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,12 +31,12 @@ class MainPageGLBB extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.home),
-              title: Text("Simulasi Cermin"),
+              title: const Text("Simulasi Cermin"),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return MainPage();
+                    return const MainPage();
                   },
                 ));
               },
@@ -42,6 +50,9 @@ class MainPageGLBB extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      body: Column(
+        children: const [Spacer(), ComboButton()],
       ),
     );
   }

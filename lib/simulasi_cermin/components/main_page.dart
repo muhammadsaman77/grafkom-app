@@ -60,7 +60,7 @@ class _MainPageState extends State<MainPage> {
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.grey,
               ),
               child: Text(
                 'Graphkom',
@@ -72,7 +72,7 @@ class _MainPageState extends State<MainPage> {
             ),
             ListTile(
               leading: const Icon(Icons.home),
-              title: Text("Simulasi Cermin"),
+              title: const Text("Simulasi Cermin"),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -84,7 +84,7 @@ class _MainPageState extends State<MainPage> {
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return MainPageGLBB();
+                    return const MainPageGLBB();
                   },
                 ));
               },
@@ -329,7 +329,7 @@ class _MainPageState extends State<MainPage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Container(
+                                  SizedBox(
                                     width: 150,
                                     child: Text(sifatBayangan()),
                                   ),
