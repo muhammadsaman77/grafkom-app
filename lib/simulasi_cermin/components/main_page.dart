@@ -20,8 +20,8 @@ class _MainPageState extends State<MainPage> {
   TextEditingController titikFokusField =
       TextEditingController(text: titikFokus.toString());
   static double ukuran = 128;
-  static double jarak = 450;
-  static double titikFokus = 200;
+  static double jarak = 184;
+  static double titikFokus = 60;
   static double jarakBayangan = DCanvas.jarakBayangan(jarak, titikFokus);
   static double ukuranBayangan =
       DCanvas.ukuranBayangan(ukuran, jarak, titikFokus);
@@ -30,7 +30,7 @@ class _MainPageState extends State<MainPage> {
 
   bool isShow = false;
   String sifatBayangan() {
-    if (jarak <= titikFokus) {
+    if (jarak < titikFokus) {
       return 'Sifat Bayangan: maya, tegak, diperbesar';
     } else if (jarak > titikFokus && jarak < 2 * titikFokus) {
       return 'Sifat Bayangan: nyata, terbalik, diperbesar';
@@ -165,7 +165,7 @@ class _MainPageState extends State<MainPage> {
                                   ),
                                   SizedBox(
                                     width: 50,
-                                    height: 20,
+                                    height: 15,
                                     child: Text(
                                       ukuranBayangan.toString(),
                                       style: const TextStyle(fontSize: 14),
@@ -220,7 +220,7 @@ class _MainPageState extends State<MainPage> {
                                   ),
                                   SizedBox(
                                     width: 50,
-                                    height: 20,
+                                    height: 15,
                                     child: Text(
                                       jarakBayangan.toString(),
                                       style: const TextStyle(fontSize: 14),
@@ -275,7 +275,7 @@ class _MainPageState extends State<MainPage> {
                                   ),
                                   SizedBox(
                                     width: 50,
-                                    height: 20,
+                                    height: 15,
                                     child: Text(
                                       (ukuranBayangan / ukuran)
                                           .abs()
@@ -313,12 +313,12 @@ class _MainPageState extends State<MainPage> {
                                   height: 10,
                                 ),
                                 Instruction(
-                                    title: 'Sinar Datang', color: Colors.red),
+                                    title: 'Garis Benda', color: Colors.red),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Instruction(
-                                    title: 'Sinar Pantul',
+                                    title: 'Garis Bayangan',
                                     color: Colors.purpleAccent)
                               ],
                             ),
@@ -338,7 +338,7 @@ class _MainPageState extends State<MainPage> {
                                         bottom: 10, top: 10),
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.blueGrey),
+                                            backgroundColor: Colors.orange),
                                         onPressed: () {
                                           setState(() {
                                             jarak = titikFokus;
