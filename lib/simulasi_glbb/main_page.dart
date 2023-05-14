@@ -16,13 +16,12 @@ class MainPageGLBB extends StatefulWidget {
 }
 
 class _MainPageGLBBState extends State<MainPageGLBB> {
-  static double x = 0;
-  static double y = 490;
-  static double diameterBola = 100;
-  static double skel = 0;
+  static double x = -640;
+  static double y = 485;
+  static double diameterBola = 90;
   static double axis = 15;
-  static double x2 = DCanvas.fx2(x, skel);
-  static double y2 = DCanvas.fy2(y, skel, diameterBola);
+  static double x2 = DCanvas.fx2(x, y);
+  static double y2 = DCanvas.fy2(y, diameterBola);
 
   bool isShow = false;
   @override
@@ -95,16 +94,18 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
                                 children: [
                                   const Text('y:'),
                                   SfSlider(
-                                    min: -600,
-                                    max: 600,
+                                    min: 0,
+                                    max: 485,
                                     value: y,
-                                    interval: 300,
+                                    interval: 140,
                                     showTicks: true,
                                     showLabels: true,
                                     enableTooltip: true,
                                     minorTicksPerInterval: 1,
                                     onChanged: (dynamic value) {
-                                      setState(() {});
+                                      setState(() {
+                                        y = value;
+                                      });
                                     },
                                     activeColor: Colors.green,
                                     inactiveColor: Colors.lightGreen,
@@ -132,17 +133,20 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
                                         final sinValue = sin(radians);
                                         final cosValue = cos(radians);
 
-                                        final rotatedX =
-                                            (x - diameterBola / 2) +
-                                                ((x2 - x) * cosValue) -
-                                                ((y2 - y) * sinValue);
-                                        final rotatedY =
-                                            (y - diameterBola / 2) +
-                                                ((x2 - x) * sinValue) +
-                                                ((y2 - y) * cosValue);
+                                        final radius =
+                                            (diameterBola / 2 * y / 480) + 10;
+                                        final offsetX = x + radius;
+                                        final offsetY = y + radius;
 
-                                        x2 = rotatedX;
-                                        y2 = rotatedY;
+                                        final rotatedX = offsetX +
+                                            ((x2 - offsetX) * cosValue) -
+                                            ((y2 - offsetY) * sinValue);
+                                        final rotatedY = offsetY +
+                                            ((x2 - offsetX) * sinValue) +
+                                            ((y2 - offsetY) * cosValue);
+
+                                        x2 = rotatedX + radius;
+                                        y2 = rotatedY + radius;
                                       });
                                     },
                                     activeColor: Colors.green,
