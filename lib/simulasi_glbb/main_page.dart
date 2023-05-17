@@ -1,12 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:grafkom_app/simulasi_cermin/components/main_page.dart';
 import 'package:grafkom_app/simulasi_glbb/combo_button.dart';
 import 'package:grafkom_app/simulasi_glbb/init_graph.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
-
-import 'canvas.dart';
 
 class MainPageGLBB extends StatefulWidget {
   const MainPageGLBB({super.key});
@@ -17,11 +13,8 @@ class MainPageGLBB extends StatefulWidget {
 
 class _MainPageGLBBState extends State<MainPageGLBB> {
   static double x = -640;
-  static double y = 485;
-  static double diameterBola = 90;
-  static double axis = 15;
-  static double x2 = DCanvas.fx2(x, y);
-  static double y2 = DCanvas.fy2(y, diameterBola);
+  static double y = 480;
+  static double diameter = 80;
 
   bool isShow = false;
   @override
@@ -68,7 +61,7 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
       ),
       body: Column(
         children: [
-          InitGraph(x: x, y: y, x2: x2, y2: y2, diameterBola: diameterBola),
+          InitGraph(x: x, y: y, diameter: diameter),
           Container(
             margin: EdgeInsets.only(
                 top: size.height * 3 / 8, left: size.width * 12 / 16 - 100),
@@ -95,7 +88,7 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
                                   const Text('y:'),
                                   SfSlider(
                                     min: 0,
-                                    max: 485,
+                                    max: 480,
                                     value: y,
                                     interval: 140,
                                     showTicks: true,
@@ -126,27 +119,7 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
                                     minorTicksPerInterval: 1,
                                     onChanged: (dynamic value) {
                                       setState(() {
-                                        axis = (-1 * (x - value));
                                         x = value;
-
-                                        final radians = pi / 180 * axis;
-                                        final sinValue = sin(radians);
-                                        final cosValue = cos(radians);
-
-                                        final radius =
-                                            (diameterBola / 2 * y / 480) + 10;
-                                        final offsetX = x + radius;
-                                        final offsetY = y + radius;
-
-                                        final rotatedX = offsetX +
-                                            ((x2 - offsetX) * cosValue) -
-                                            ((y2 - offsetY) * sinValue);
-                                        final rotatedY = offsetY +
-                                            ((x2 - offsetX) * sinValue) +
-                                            ((y2 - offsetY) * cosValue);
-
-                                        x2 = rotatedX + radius;
-                                        y2 = rotatedY + radius;
                                       });
                                     },
                                     activeColor: Colors.green,
