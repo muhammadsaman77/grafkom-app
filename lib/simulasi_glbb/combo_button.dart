@@ -2,23 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class ComboButton extends StatelessWidget {
-  late double x, y, diameter, kecepatan;
+  final double x;
+  final double y;
   final Function(dynamic value) onChangeY;
   final Function(dynamic value) onChangeX;
-  final Function() startAnimation;
-  double gravity = 1;
-  ComboButton(
+  final Function() onPressedDown;
+  const ComboButton(
       {super.key,
       required this.x,
       required this.y,
-      required this.diameter,
-      required this.kecepatan,
       required this.onChangeY,
       required this.onChangeX,
-      required this.startAnimation});
-
-  void moveLeft() {}
-
+      required this.onPressedDown});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -90,7 +85,7 @@ class ComboButton extends StatelessWidget {
             width: 20.0,
           ),
           ElevatedButton(
-              onPressed: startAnimation,
+              onPressed: () {},
               style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
               child: const Icon(
                 Icons.keyboard_double_arrow_right,
@@ -117,7 +112,6 @@ class ComboButton extends StatelessWidget {
                   min: 0,
                   max: 480,
                   value: y,
-                  interval: 140,
                   showTicks: true,
                   showLabels: true,
                   enableTooltip: true,
@@ -129,6 +123,16 @@ class ComboButton extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(
+            width: 10.0,
+          ),
+          ElevatedButton(
+              onPressed: onPressedDown,
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+              child: const Icon(
+                Icons.swipe_down_outlined,
+                color: Colors.black54,
+              ))
         ],
       ),
     );
