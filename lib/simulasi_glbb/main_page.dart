@@ -163,7 +163,9 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text("Simulasi GLBB"),
+      ),
       drawer: Drawer(
         child: ListView(
           children: [
