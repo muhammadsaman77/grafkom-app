@@ -124,47 +124,6 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
     }
   }
 
-  // late bool isDrop;
-  // void run() {
-  // setState(() {
-  //   gravity = 0;
-  //   isDrop = true;
-  // });
-
-  //   while (y < 480 || gravity > 0) {
-  //     while (isDrop) {
-  //       setState(() {
-  //         gravity++;
-  //         y -= gravity;
-  //         if (y == 480) {
-  //           isDrop = !isDrop;
-  //         }
-  //       });
-
-  //       int delay = 10 + DateTime.now().millisecondsSinceEpoch;
-  //       while (DateTime.now().millisecondsSinceEpoch < delay) {
-  //         // Tunggu
-  //       }
-  //     }
-
-  //     while (!isDrop) {
-  //       setState(() {
-  //         gravity -= 2;
-  //         y += gravity;
-  //         if (gravity < 0) {
-  //           isDrop = !isDrop;
-  //         }
-  //       });
-
-  //       int delay = 10 + DateTime.now().millisecondsSinceEpoch;
-  //       while (DateTime.now().millisecondsSinceEpoch < delay) {
-  //         // Tunggu
-  //       }
-  //     }
-  //   }
-  // }
-
-  bool isShow = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,10 +135,10 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.grey,
               ),
               child: Text(
-                'Graphkom',
+                'Grafika Komputer',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -199,7 +158,7 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.home),
+              leading: const Icon(Icons.sports_basketball),
               title: const Text("Simulasi GLBB"),
               onTap: () {
                 Navigator.pop(context);

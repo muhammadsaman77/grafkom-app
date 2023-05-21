@@ -54,7 +54,9 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text("Simulasi Cermin"),
+      ),
       drawer: Drawer(
         child: ListView(
           children: [
@@ -63,7 +65,7 @@ class _MainPageState extends State<MainPage> {
                 color: Colors.grey,
               ),
               child: Text(
-                'Graphkom',
+                'Grafika Komputer',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -78,7 +80,7 @@ class _MainPageState extends State<MainPage> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.home),
+              leading: const Icon(Icons.sports_basketball),
               title: const Text("Simulasi GLBB"),
               onTap: () {
                 Navigator.pop(context);
@@ -294,10 +296,10 @@ class _MainPageState extends State<MainPage> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
+                            const Column(
                               // mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
+                              children: [
                                 Instruction(
                                   title: 'Benda',
                                   color: Colors.blue,
