@@ -59,6 +59,26 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
     });
   }
 
+  dropAnimation() {
+    Timer.periodic(const Duration(milliseconds: 10), (Timer timer) {
+      int gravity = 0;
+      bool isDrop = true;
+      if (y < 480 || 0 < gravity) {
+        if (isDrop) {
+          gravity++;
+          y = y + gravity;
+          if (480 == y) isDrop = !isDrop;
+        }
+        if (!isDrop) {
+          gravity -= 2;
+          y = y - gravity;
+          if (gravity < 0) isDrop = !isDrop;
+        }
+      }
+      setState(() {});
+    });
+  }
+
   bool isShow = false;
   @override
   Widget build(BuildContext context) {
@@ -109,12 +129,17 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
             x: x,
             y: y,
             startAnimation: startAnimation,
+            dropAnimation: dropAnimation,
             onChangeX: onChangeX,
             onChangeY: onChangedY,
-            onPressedDown: () {},
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
