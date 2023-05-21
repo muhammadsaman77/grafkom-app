@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:grafkom_app/simulasi_cermin/components/main_page.dart';
 import 'package:grafkom_app/simulasi_glbb/combo_button.dart';
@@ -12,9 +14,10 @@ class MainPageGLBB extends StatefulWidget {
 
 class _MainPageGLBBState extends State<MainPageGLBB> {
   static double x = -640;
-  static double y = 0;
-  double ground = 480;
+  static double y = 480;
   static double diameter = 80;
+  static double kecepatan = 300;
+  double gravity = 1;
   onChangedY(dynamic value) {
     setState(() {
       y = value;
@@ -27,21 +30,33 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
     });
   }
 
-  onPressedDown() {
-    int gravitasi = 0;
-    bool isDrop = true;
-    while (y < 480 || gravitasi > 0) {
-      gravitasi++;
-      y = y + 1;
-      if (y == 480) isDrop = !isDrop;
-      print(y);
-    }
-    while (!isDrop) {
-      gravitasi -= 2;
-      y = y - gravitasi;
-      if (gravitasi < 0) isDrop = !isDrop;
-    }
-    setState(() {});
+  startAnimation() {
+    Timer.periodic(const Duration(milliseconds: 10), (Timer timer) {
+      if (kecepatan > 0) {
+        double curPos = x + (kecepatan / 10);
+        if (curPos > 640.0) {
+          curPos -= 1280.0;
+          x = 640.0 - curPos;
+          kecepatan -= gravity;
+          kecepatan *= -1;
+        } else {
+          x = curPos;
+          kecepatan -= gravity;
+        }
+      } else if (kecepatan < 0) {
+        double curPos = x + (kecepatan / 10);
+        if (curPos < 0.0) {
+          curPos -= 0.0;
+          x = curPos - 0.0;
+          kecepatan += gravity;
+          kecepatan *= -1;
+        } else {
+          x = curPos;
+          kecepatan += gravity;
+        }
+      }
+      setState(() {}); // Memperbarui state dan membangun ulang tampilan
+    });
   }
 
   bool isShow = false;
@@ -95,7 +110,7 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
             y: y,
             onChangeX: onChangeX,
             onChangeY: onChangedY,
-            onPressedDown: onPressedDown,
+            onPressedDown: () {},
           ),
         ],
       ),
