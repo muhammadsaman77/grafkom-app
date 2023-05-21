@@ -12,7 +12,8 @@ class MainPageGLBB extends StatefulWidget {
 
 class _MainPageGLBBState extends State<MainPageGLBB> {
   static double x = -640;
-  static double y = 480;
+  static double y = 0;
+  double ground = 480;
   static double diameter = 80;
   onChangedY(dynamic value) {
     setState(() {
@@ -24,6 +25,23 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
     setState(() {
       x = value;
     });
+  }
+
+  onPressedDown() {
+    int gravitasi = 0;
+    bool isDrop = true;
+    while (y < 480 || gravitasi > 0) {
+      gravitasi++;
+      y = y + 1;
+      if (y == 480) isDrop = !isDrop;
+      print(y);
+    }
+    while (!isDrop) {
+      gravitasi -= 2;
+      y = y - gravitasi;
+      if (gravitasi < 0) isDrop = !isDrop;
+    }
+    setState(() {});
   }
 
   bool isShow = false;
@@ -77,6 +95,7 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
             y: y,
             onChangeX: onChangeX,
             onChangeY: onChangedY,
+            onPressedDown: onPressedDown,
           ),
         ],
       ),

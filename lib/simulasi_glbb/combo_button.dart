@@ -6,12 +6,14 @@ class ComboButton extends StatelessWidget {
   final double y;
   final Function(dynamic value) onChangeY;
   final Function(dynamic value) onChangeX;
+  final Function() onPressedDown;
   const ComboButton(
       {super.key,
       required this.x,
       required this.y,
       required this.onChangeY,
-      required this.onChangeX});
+      required this.onChangeX,
+      required this.onPressedDown});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -110,7 +112,6 @@ class ComboButton extends StatelessWidget {
                   min: 0,
                   max: 480,
                   value: y,
-                  interval: 140,
                   showTicks: true,
                   showLabels: true,
                   enableTooltip: true,
@@ -122,6 +123,16 @@ class ComboButton extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(
+            width: 10.0,
+          ),
+          ElevatedButton(
+              onPressed: onPressedDown,
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+              child: const Icon(
+                Icons.swipe_down_outlined,
+                color: Colors.black54,
+              ))
         ],
       ),
     );
