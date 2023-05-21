@@ -106,13 +106,15 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
       bool isDrop = true;
       if (y < 480 || 0 < gravity) {
         if (isDrop) {
-          gravity++;
+          gravity += 10;
           y = y + gravity;
-          if (480 == y) isDrop = !isDrop;
+          if (480 == y) {
+            isDrop = !isDrop;
+          }
         }
         if (!isDrop) {
           gravity -= 2;
-          y = y - gravity;
+          y = y + gravity;
           if (gravity < 0) isDrop = !isDrop;
         }
       }
@@ -120,7 +122,6 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
     });
   }
 
-  bool isShow = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
