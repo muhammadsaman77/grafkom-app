@@ -35,7 +35,7 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
       if (kecepatan > 0) {
         double curPos = x + (kecepatan / 10);
         if (curPos > 640.0) {
-          curPos -= 1280.0;
+          curPos -= 640.0;
           x = 640.0 - curPos;
           kecepatan -= gravity;
           kecepatan *= -1;
@@ -45,9 +45,9 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
         }
       } else if (kecepatan < 0) {
         double curPos = x + (kecepatan / 10);
-        if (curPos < 0.0) {
+        if (curPos < -640.0) {
           curPos -= 0.0;
-          x = curPos - 0.0;
+          x = curPos + 0.0;
           kecepatan += gravity;
           kecepatan *= -1;
         } else {
