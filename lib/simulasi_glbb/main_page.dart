@@ -34,9 +34,9 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
     Timer.periodic(const Duration(milliseconds: 10), (Timer timer) {
       if (kecepatan > 0) {
         double curPos = x + (kecepatan / 10);
-        if (curPos > 200.0) {
-          curPos -= 200.0;
-          x = 200.0 - curPos;
+        if (curPos > 640.0 && curPos > -640) {
+          curPos -= 640.0;
+          x = 640.0 - curPos;
           kecepatan -= gravity;
           kecepatan *= -1;
         } else {
