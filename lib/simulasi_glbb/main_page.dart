@@ -60,21 +60,26 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
   }
 
   dropAnimation() async {
-    int gravity = 0;
+    double gravity = 0;
     bool isDrop = true;
     while (y < 480 || gravity > 0) {
       if (isDrop) {
         setState(() {
-          gravity += 1;
-          y = y + gravity;
-          if (480 >= y.round()) {
-            gravity -= 1;
-            y -= gravity;
-            if (gravity < 0) {}
+          gravity += 0.01;
+          y += gravity;
+          if (480 <= y) {
+            isDrop = false;
           }
         });
       }
-      await Future.delayed(const Duration(milliseconds: 1));
+      if (!isDrop) {
+        gravity -= 0.01;
+        y -= gravity;
+        if (gravity < 0) {
+          isDrop = true;
+        }
+      }
+      await Future.delayed(const Duration(microseconds: 10));
     }
   }
 
