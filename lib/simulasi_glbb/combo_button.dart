@@ -7,13 +7,15 @@ class ComboButton extends StatelessWidget {
   final Function(dynamic value) onChangeY;
   final Function(dynamic value) onChangeX;
   final Function() onPressedDown;
+  final Function() startAnimation;
   const ComboButton(
       {super.key,
       required this.x,
       required this.y,
       required this.onChangeY,
       required this.onChangeX,
-      required this.onPressedDown});
+      required this.onPressedDown,
+      required this.startAnimation});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -85,7 +87,7 @@ class ComboButton extends StatelessWidget {
             width: 20.0,
           ),
           ElevatedButton(
-              onPressed: () {},
+              onPressed: startAnimation,
               style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
               child: const Icon(
                 Icons.keyboard_double_arrow_right,

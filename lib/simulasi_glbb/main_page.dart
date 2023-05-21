@@ -108,6 +108,7 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
           ComboButton(
             x: x,
             y: y,
+            startAnimation: startAnimation,
             onChangeX: onChangeX,
             onChangeY: onChangedY,
             onPressedDown: () {},
