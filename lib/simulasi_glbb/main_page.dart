@@ -100,28 +100,66 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
     });
   }
 
-  dropAnimation() {
-    Timer.periodic(const Duration(milliseconds: 10), (Timer timer) {
-      int gravity = 0;
-      bool isDrop = true;
-      if (y < 480 || 0 < gravity) {
-        if (isDrop) {
-          gravity += 10;
+  dropAnimation() async {
+    int gravity = 0;
+    bool isDrop = true;
+    while (y < 480 || gravity > 0) {
+      if (isDrop) {
+        setState(() {
+          gravity += 1;
           y = y + gravity;
-          if (480 == y) {
-            isDrop = !isDrop;
+          if (480 >= y.round()) {
+            gravity -= 1;
+            y -= gravity;
+            if (gravity < 0) {}
           }
-        }
-        if (!isDrop) {
-          gravity -= 2;
-          y = y + gravity;
-          if (gravity < 0) isDrop = !isDrop;
-        }
+        });
       }
-      setState(() {});
-    });
+      await Future.delayed(const Duration(milliseconds: 1));
+    }
   }
 
+  // late bool isDrop;
+  // void run() {
+  // setState(() {
+  //   gravity = 0;
+  //   isDrop = true;
+  // });
+
+  //   while (y < 480 || gravity > 0) {
+  //     while (isDrop) {
+  //       setState(() {
+  //         gravity++;
+  //         y -= gravity;
+  //         if (y == 480) {
+  //           isDrop = !isDrop;
+  //         }
+  //       });
+
+  //       int delay = 10 + DateTime.now().millisecondsSinceEpoch;
+  //       while (DateTime.now().millisecondsSinceEpoch < delay) {
+  //         // Tunggu
+  //       }
+  //     }
+
+  //     while (!isDrop) {
+  //       setState(() {
+  //         gravity -= 2;
+  //         y += gravity;
+  //         if (gravity < 0) {
+  //           isDrop = !isDrop;
+  //         }
+  //       });
+
+  //       int delay = 10 + DateTime.now().millisecondsSinceEpoch;
+  //       while (DateTime.now().millisecondsSinceEpoch < delay) {
+  //         // Tunggu
+  //       }
+  //     }
+  //   }
+  // }
+
+  bool isShow = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
