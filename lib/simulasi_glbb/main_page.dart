@@ -16,7 +16,10 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
   static double x = -640;
   static double y = 480;
   static double diameter = 80;
-  static double kecepatan = 300;
+  static TextEditingController textController =
+      TextEditingController(text: "0");
+
+  _MainPageGLBBState();
   double gravity = 1;
   onChangedY(dynamic value) {
     setState(() {
@@ -30,7 +33,41 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
     });
   }
 
-  startAnimation() {
+  startLeftAnimation() {
+    double kecepatan = double.parse(textController.text);
+    Timer.periodic(const Duration(milliseconds: 10), (timer) {
+      if (kecepatan < 0) {
+        double curPos = x + (kecepatan / 10);
+        if (curPos < -640) {
+          curPos -= 0;
+          x = curPos;
+          kecepatan += gravity;
+          kecepatan *= -1;
+          textController.text = "${kecepatan.abs()}";
+        } else {
+          x = curPos;
+          kecepatan += gravity;
+          textController.text = "${kecepatan.abs()}";
+        }
+      } else if (kecepatan > 0) {
+        double curPos = x + (kecepatan / 10);
+        if (curPos > 640) {
+          kecepatan -= gravity;
+          kecepatan *= -1;
+          textController.text = "${kecepatan.abs()}";
+        } else {
+          x = curPos;
+          kecepatan -= gravity;
+          textController.text = "${kecepatan.abs()}";
+        }
+      }
+
+      setState(() {});
+    });
+  }
+
+  startRightAnimation() {
+    double kecepatan = double.parse(textController.text);
     Timer.periodic(const Duration(milliseconds: 10), (Timer timer) {
       if (kecepatan > 0) {
         double curPos = x + (kecepatan / 10);
@@ -39,9 +76,11 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
           x = 640.0 - curPos;
           kecepatan -= gravity;
           kecepatan *= -1;
+          textController.text = "${kecepatan.abs()}";
         } else {
           x = curPos;
           kecepatan -= gravity;
+          textController.text = "${kecepatan.abs()}";
         }
       } else if (kecepatan < 0) {
         double curPos = x + (kecepatan / 10);
@@ -50,9 +89,11 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
           x = curPos + 0.0;
           kecepatan += gravity;
           kecepatan *= -1;
+          textController.text = "${kecepatan.abs()}";
         } else {
           x = curPos;
           kecepatan += gravity;
+          textController.text = "${kecepatan.abs()}";
         }
       }
       setState(() {}); // Memperbarui state dan membangun ulang tampilan
@@ -128,10 +169,12 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
           ComboButton(
             x: x,
             y: y,
-            startAnimation: startAnimation,
+            startRightAnimation: startRightAnimation,
+            startLeftAnimaion: startLeftAnimation,
             dropAnimation: dropAnimation,
             onChangeX: onChangeX,
             onChangeY: onChangedY,
+            textController: textController,
           ),
         ],
       ),

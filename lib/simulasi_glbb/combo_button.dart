@@ -6,16 +6,20 @@ class ComboButton extends StatelessWidget {
   final double y;
   final Function(dynamic value) onChangeY;
   final Function(dynamic value) onChangeX;
-  final Function() startAnimation;
+  final Function() startRightAnimation;
   final Function() dropAnimation;
+  final Function() startLeftAnimaion;
+  final TextEditingController textController;
   const ComboButton(
       {super.key,
       required this.x,
       required this.y,
       required this.onChangeY,
       required this.onChangeX,
-      required this.startAnimation,
-      required this.dropAnimation});
+      required this.startRightAnimation,
+      required this.dropAnimation,
+      required this.textController,
+      required this.startLeftAnimaion});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,17 +54,7 @@ class ComboButton extends StatelessWidget {
             width: 10.0,
           ),
           ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-              child: const Icon(
-                Icons.chevron_left,
-                color: Colors.black54,
-              )),
-          const SizedBox(
-            width: 10.0,
-          ),
-          ElevatedButton(
-              onPressed: () {},
+              onPressed: startLeftAnimaion,
               style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
               child: const Icon(
                 Icons.keyboard_double_arrow_left,
@@ -73,7 +67,8 @@ class ComboButton extends StatelessWidget {
               width: 100,
               height: 30,
               child: TextFormField(
-                controller: TextEditingController(text: ""),
+                controller: textController,
+                keyboardType: TextInputType.number,
                 style: const TextStyle(color: Colors.black),
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(
@@ -87,22 +82,12 @@ class ComboButton extends StatelessWidget {
             width: 20.0,
           ),
           ElevatedButton(
-              onPressed: startAnimation,
+              onPressed: startRightAnimation,
               style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
               child: const Icon(
                 Icons.keyboard_double_arrow_right,
                 color: Colors.black54,
               )),
-          ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-              child: const Icon(
-                Icons.chevron_right,
-                color: Colors.black54,
-              )),
-          const SizedBox(
-            width: 10.0,
-          ),
           Container(
             height: 60,
             color: Colors.grey,
