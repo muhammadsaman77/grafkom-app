@@ -296,10 +296,10 @@ class _MainPageState extends State<MainPage> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Column(
+                            Column(
                               // mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+                              children: const [
                                 Instruction(
                                   title: 'Benda',
                                   color: Colors.blue,
