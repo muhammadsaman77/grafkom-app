@@ -33,42 +33,8 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
     });
   }
 
-  startLeftAnimation() {
-    double kecepatan = -1 * double.parse(textController.text);
-    Timer.periodic(const Duration(milliseconds: 10), (Timer timer) {
-      if (kecepatan > 0) {
-        double curPos = x + (kecepatan / 10);
-        if (curPos > 640.0) {
-          curPos -= 640.0;
-          x = 640.0 - curPos;
-          kecepatan -= gravity;
-          kecepatan *= -1;
-          textController.text = "${kecepatan.abs()}";
-        } else {
-          x = curPos;
-          kecepatan -= gravity;
-          textController.text = "${kecepatan.abs()}";
-        }
-      } else if (kecepatan < 0) {
-        double curPos = x + (kecepatan / 10);
-        if (curPos < -640.0) {
-          curPos -= 0.0;
-          x = curPos + 0.0;
-          kecepatan += gravity;
-          kecepatan *= -1;
-          textController.text = "${kecepatan.abs()}";
-        } else {
-          x = curPos;
-          kecepatan += gravity;
-          textController.text = "${kecepatan.abs()}";
-        }
-      }
-      setState(() {}); // Memperbarui state dan membangun ulang tampilan
-    });
-  }
-
-  startRightAnimation() {
-    double kecepatan = double.parse(textController.text);
+  startAnimation(int koefiesien) {
+    double kecepatan = koefiesien * double.parse(textController.text);
     Timer.periodic(const Duration(milliseconds: 10), (Timer timer) {
       if (kecepatan > 0) {
         double curPos = x + (kecepatan / 10);
@@ -175,8 +141,12 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
           ComboButton(
             x: x,
             y: y,
-            startRightAnimation: startRightAnimation,
-            startLeftAnimaion: startLeftAnimation,
+            startRightAnimation: () {
+              startAnimation(1);
+            },
+            startLeftAnimaion: () {
+              startAnimation(-1);
+            },
             dropAnimation: dropAnimation,
             onChangeX: onChangeX,
             onChangeY: onChangedY,
