@@ -34,13 +34,13 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
   }
 
   startLeftAnimation() {
-    double kecepatan = double.parse(textController.text);
-    Timer.periodic(const Duration(milliseconds: 10), (timer) {
-      if (kecepatan < 0) {
+    double kecepatan = -1 * double.parse(textController.text);
+    Timer.periodic(const Duration(milliseconds: 10), (Timer timer) {
+      if (kecepatan > 0) {
         double curPos = x + (kecepatan / 10);
-        if (curPos < -640) {
-          curPos -= 0;
-          x = curPos;
+        if (curPos > 640.0) {
+          curPos -= 640.0;
+          x = 640.0 - curPos;
           kecepatan -= gravity;
           kecepatan *= -1;
           textController.text = "${kecepatan.abs()}";
@@ -49,9 +49,11 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
           kecepatan -= gravity;
           textController.text = "${kecepatan.abs()}";
         }
-      } else if (kecepatan > 0) {
+      } else if (kecepatan < 0) {
         double curPos = x + (kecepatan / 10);
-        if (curPos > 640) {
+        if (curPos < -640.0) {
+          curPos -= 0.0;
+          x = curPos + 0.0;
           kecepatan += gravity;
           kecepatan *= -1;
           textController.text = "${kecepatan.abs()}";
@@ -61,8 +63,7 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
           textController.text = "${kecepatan.abs()}";
         }
       }
-
-      setState(() {});
+      setState(() {}); // Memperbarui state dan membangun ulang tampilan
     });
   }
 
@@ -113,14 +114,14 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
           }
         });
       }
-      if (!isDrop) {
+      while (!isDrop) {
         gravity -= 0.01;
         y -= gravity;
         if (gravity < 0) {
           isDrop = true;
         }
       }
-      await Future.delayed(const Duration(microseconds: 10));
+      await Future.delayed(const Duration(microseconds: 950));
     }
   }
 

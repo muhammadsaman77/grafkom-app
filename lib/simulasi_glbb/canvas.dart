@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -27,83 +26,48 @@ class DCanvas extends CustomPainter {
 
   void circleDesignPoints(int xCenter, int yCenter, int x, int y, Paint paint1,
       Paint paint2, Canvas canvas, double angle) {
-    Matrix4 matrix = Matrix4.identity();
-    matrix.translate(xCenter.toDouble(), yCenter.toDouble());
-    matrix.rotateZ(angle);
-    matrix.translate(-xCenter.toDouble(), -yCenter.toDouble());
+    Path path1 = createPath(xCenter, yCenter, x, y, angle);
+    canvas.drawPath(path1, paint2);
 
-    Path path1 = Path();
-    path1.addOval(Rect.fromCircle(
-        center: Offset(xCenter.toDouble() + x, yCenter.toDouble() + y),
-        radius: 1));
-    path1 = path1.transform(matrix.storage);
-    setPoints(path1.getBounds().center.dx.round(),
-        path1.getBounds().center.dy.round(), paint2, canvas);
+    Path path2 = createPath(xCenter, yCenter, x, -y, angle);
+    canvas.drawPath(path2, paint1);
 
-    Path path2 = Path();
-    path2.addOval(Rect.fromCircle(
-        center: Offset(xCenter.toDouble() + x, yCenter.toDouble() - y),
-        radius: 1));
-    path2 = path2.transform(matrix.storage);
-    setPoints(path2.getBounds().center.dx.round(),
-        path2.getBounds().center.dy.round(), paint1, canvas);
+    Path path3 = createPath(xCenter, yCenter, -x, y, angle);
+    canvas.drawPath(path3, paint1);
 
-    Path path3 = Path();
-    path3.addOval(Rect.fromCircle(
-        center: Offset(xCenter.toDouble() - x, yCenter.toDouble() + y),
-        radius: 1));
-    path3 = path3.transform(matrix.storage);
-    setPoints(path3.getBounds().center.dx.round(),
-        path3.getBounds().center.dy.round(), paint1, canvas);
+    Path path4 = createPath(xCenter, yCenter, -x, -y, angle);
+    canvas.drawPath(path4, paint2);
 
-    Path path4 = Path();
-    path4.addOval(Rect.fromCircle(
-        center: Offset(xCenter.toDouble() - x, yCenter.toDouble() - y),
-        radius: 1));
-    path4 = path4.transform(matrix.storage);
-    setPoints(path4.getBounds().center.dx.round(),
-        path4.getBounds().center.dy.round(), paint2, canvas);
+    Path path5 = createPath(xCenter, yCenter, y, x, angle);
+    canvas.drawPath(path5, paint1);
 
-    Path path5 = Path();
-    path5.addOval(Rect.fromCircle(
-        center: Offset(xCenter.toDouble() + y, yCenter.toDouble() + x),
-        radius: 1));
-    path5 = path5.transform(matrix.storage);
-    setPoints(path5.getBounds().center.dx.round(),
-        path5.getBounds().center.dy.round(), paint1, canvas);
+    Path path6 = createPath(xCenter, yCenter, y, -x, angle);
+    canvas.drawPath(path6, paint2);
 
-    Path path6 = Path();
-    path6.addOval(Rect.fromCircle(
-        center: Offset(xCenter.toDouble() + y, yCenter.toDouble() - x),
-        radius: 1));
-    path6 = path6.transform(matrix.storage);
-    setPoints(path6.getBounds().center.dx.round(),
-        path6.getBounds().center.dy.round(), paint2, canvas);
+    Path path7 = createPath(xCenter, yCenter, -y, x, angle);
+    canvas.drawPath(path7, paint2);
 
-    Path path7 = Path();
-    path7.addOval(Rect.fromCircle(
-        center: Offset(xCenter.toDouble() - y, yCenter.toDouble() + x),
-        radius: 1));
-    path7 = path7.transform(matrix.storage);
-    setPoints(path7.getBounds().center.dx.round(),
-        path7.getBounds().center.dy.round(), paint2, canvas);
-
-    Path path8 = Path();
-    path8.addOval(Rect.fromCircle(
-        center: Offset(xCenter.toDouble() - y, yCenter.toDouble() - x),
-        radius: 1));
-    path8 = path8.transform(matrix.storage);
-    setPoints(path8.getBounds().center.dx.round(),
-        path8.getBounds().center.dy.round(), paint1, canvas);
+    Path path8 = createPath(xCenter, yCenter, -y, -x, angle);
+    canvas.drawPath(path8, paint1);
   }
 
-  void setPoints(int x, int y, Paint paint, Canvas canvas) {
-    try {
-      canvas.drawPoints(
-          PointMode.points, [Offset(x.toDouble(), y.toDouble())], paint);
-    } catch (e) {
-      // do nothing
-    }
+  Path createPath(int xCenter, int yCenter, int x, int y, double angle) {
+    Path path = Path();
+
+    // Menghitung koordinat titik awal setelah rotasi
+    double rotatedX = x * cos(angle) - y * sin(angle);
+    double rotatedY = x * sin(angle) + y * cos(angle);
+
+    // Menghitung koordinat titik akhir setelah rotasi
+    double endX = xCenter + rotatedX;
+    double endY = yCenter + rotatedY;
+
+    // Menambahkan titik awal dan titik akhir ke dalam path
+    path.moveTo(xCenter.toDouble(), yCenter.toDouble());
+    path.arcToPoint(Offset(endX, endY), radius: const Radius.circular(1));
+    path.close();
+
+    return path;
   }
 
   @override
