@@ -41,23 +41,23 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
         if (curPos < -640) {
           curPos -= 0;
           x = curPos;
-          kecepatan += gravity;
+          kecepatan -= gravity;
           kecepatan *= -1;
           textController.text = "${kecepatan.abs()}";
         } else {
           x = curPos;
-          kecepatan += gravity;
+          kecepatan -= gravity;
           textController.text = "${kecepatan.abs()}";
         }
       } else if (kecepatan > 0) {
         double curPos = x + (kecepatan / 10);
         if (curPos > 640) {
-          kecepatan -= gravity;
+          kecepatan += gravity;
           kecepatan *= -1;
           textController.text = "${kecepatan.abs()}";
         } else {
           x = curPos;
-          kecepatan -= gravity;
+          kecepatan += gravity;
           textController.text = "${kecepatan.abs()}";
         }
       }
