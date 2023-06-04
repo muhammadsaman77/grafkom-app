@@ -10,6 +10,7 @@ class ComboButton extends StatelessWidget {
   final Function() dropAnimation;
   final Function() startLeftAnimaion;
   final TextEditingController textController;
+  final double radius;
   const ComboButton(
       {super.key,
       required this.x,
@@ -19,7 +20,8 @@ class ComboButton extends StatelessWidget {
       required this.startRightAnimation,
       required this.dropAnimation,
       required this.textController,
-      required this.startLeftAnimaion});
+      required this.startLeftAnimaion,
+      required this.radius});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -119,7 +121,26 @@ class ComboButton extends StatelessWidget {
               child: const Icon(
                 Icons.swipe_down_outlined,
                 color: Colors.black54,
-              ))
+              )),
+          const SizedBox(
+            width: 30.0,
+          ),
+          Container(
+            child: Row(
+              children: [
+                const Text('Radius Lingkaran: '),
+                SizedBox(
+                    width: 100,
+                    height: 15,
+                    child: Text(
+                      radius.round().toString(),
+                      style: const TextStyle(
+                        color: Colors.black,
+                      ),
+                    ))
+              ],
+            ),
+          )
         ],
       ),
     );

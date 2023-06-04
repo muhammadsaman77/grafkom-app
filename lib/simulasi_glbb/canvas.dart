@@ -3,8 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class DCanvas extends CustomPainter {
-  late double x, y, diamater;
-  DCanvas({required this.x, required this.y, required this.diamater});
+  late double x, y, diamater, radius;
+  DCanvas(
+      {required this.x,
+      required this.y,
+      required this.diamater,
+      required this.radius});
 
   void drawCircle(int xCenter, int yCenter, int radius, Paint color,
       Paint color2, Canvas canvas, double angle) {
@@ -81,8 +85,8 @@ class DCanvas extends CustomPainter {
       ..strokeWidth = 3 * y / 480 + 2
       ..style = PaintingStyle.stroke;
 
-    drawCircle(x.round(), y.round(), ((diamater / 2 * y / 485) + 20).round(),
-        black, red, canvas, x * (2 * pi / 640).abs());
+    drawCircle(x.round(), y.round(), radius.round(), black, red, canvas,
+        x * (2 * pi / 640).abs());
   }
 
   @override

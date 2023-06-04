@@ -16,6 +16,7 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
   static double x = -640;
   static double y = 480;
   static double diameter = 80;
+  static double radius = (diameter / 2 * y / 480) + 20;
   static TextEditingController textController =
       TextEditingController(text: "0");
 
@@ -24,6 +25,7 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
   onChangedY(dynamic value) {
     setState(() {
       y = value;
+      radius = (diameter / 2 * y / 485) + 20;
     });
   }
 
@@ -71,6 +73,7 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
     double gravity = 0;
     bool isDrop = true;
     while (y < 480 || gravity > 0) {
+      radius = (diameter / 2 * y / 480) + 20;
       if (isDrop) {
         setState(() {
           gravity += 0.01;
@@ -136,7 +139,12 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
       ),
       body: Column(
         children: [
-          InitGraph(x: x, y: y, diameter: diameter),
+          InitGraph(
+            x: x,
+            y: y,
+            diameter: diameter,
+            radius: radius,
+          ),
           const Spacer(),
           ComboButton(
             x: x,
@@ -151,6 +159,7 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
             onChangeX: onChangeX,
             onChangeY: onChangedY,
             textController: textController,
+            radius: radius,
           ),
         ],
       ),
