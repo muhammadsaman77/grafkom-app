@@ -16,6 +16,9 @@ class _MainPageGLBBState extends State<MainPageGLBB> {
   static double x = -640;
   static double y = 480;
   static double diameter = 80;
+  // Untuk mengubah ukuran lingkaran (scale) berdasarkan nilai radius
+  // Nilai radius berubah berdasarkan perubahan nilai y (max: 480, min: 0)
+  // Dilakukan penambahan dengan "20" agar nilai radius tidak 0 saat nilai y = 0
   static double radius = (diameter / 2 * y / 480) + 20;
   static TextEditingController textController =
       TextEditingController(text: "0");

@@ -58,7 +58,8 @@ class DCanvas extends CustomPainter {
   Path createPath(int xCenter, int yCenter, int x, int y, double angle) {
     Path path = Path();
 
-    // Menghitung koordinat titik awal setelah rotasi
+    // Untuk memutar lingkaran (rotate)
+    // Untuk rumus nilai angle terdapat pada baris 90
     double rotatedX = x * cos(angle) - y * sin(angle);
     double rotatedY = x * sin(angle) + y * cos(angle);
 
@@ -84,9 +85,14 @@ class DCanvas extends CustomPainter {
       ..color = Colors.red
       ..strokeWidth = 3 * y / 480 + 2
       ..style = PaintingStyle.stroke;
-
-    drawCircle(x.round(), y.round(), radius.round(), black, red, canvas,
-        x * (2 * pi / 640).abs());
+    // rotasi lingkaran berdasarkan nilai angle yaitu 0 derajat - 360 derajat
+    // perubahan nilai angle terjadi berdasarkan perubahan nilai x
+    double angle = x * (2 * pi / 640).abs();
+    // x dan y merupakan koordinat pusat lingkaran
+    // sehingga untuk memindahkan lingkaran (translate) hanya perlu mengubah nilai x dan y menggunakan slider
+    // untuk perubahan nilai x menggunakan slider terdapat pada file combo_button.dart baris 39-51
+    // untuk perubahan nilai y menggunakan slider terdapat pada file combo_button.dart baris 100-111
+    drawCircle(x.round(), y.round(), radius.round(), black, red, canvas, angle);
   }
 
   @override
